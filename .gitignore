@@ -1,3 +1,7 @@
+# Local server scripts
+local-server.js
+server.js
+
 # Dependencies & runtime
 node_modules/
 npm-debug.log*
