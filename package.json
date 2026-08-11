@@ -2,12 +2,19 @@
   "name": "titan-watch-scrollytelling",
   "version": "1.0.0",
   "description": "Luxury Titan Horology interactive 3D scrollytelling web experience",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "echo 'Static assets ready for Vercel deployment'"
   },
-  "keywords": ["titan", "luxury", "watch", "scrollytelling", "canvas", "horology"],
+  "keywords": [
+    "titan",
+    "luxury",
+    "watch",
+    "scrollytelling",
+    "canvas",
+    "horology"
+  ],
   "author": "Antigravity",
   "license": "MIT"
 }
