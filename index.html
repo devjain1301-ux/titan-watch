@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TITAN HOROLOGY | The Sovereign Emerald Masterpiece</title>
+  <meta name="description" content="Experience the materialization of the Titan Sovereign Emerald luxury timepiece. 18K Rose Gold, hand-crafted Swiss automatic movement, and starlight-grade horology.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱️</text></svg>">
+</head>
+<body>
+
+  <!-- Ambient Grid Background -->
+  <div class="bg-ambient-grid"></div>
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="preloader-emblem">
+      <div class="preloader-ring"></div>
+      <div class="preloader-ring-pulse"></div>
+      <div class="preloader-symbol">T</div>
+    </div>
+    <div class="preloader-text-group">
+      <div class="preloader-brand">TITAN HOROLOGY</div>
+      <div class="preloader-status" id="preloadStatus">Synthesizing Frames (0%)</div>
+    </div>
+    <div class="preloader-bar-wrap">
+      <div class="preloader-bar" id="preloadBar"></div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <a href="#" class="brand-logo" id="navLogo">
+      <div class="brand-emblem">T</div>
+      <span class="brand-name">Titan Sovereign</span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#genesis" class="nav-link active">Genesis</a></li>
+        <li><a href="#craftsmanship" class="nav-link">Craftsmanship</a></li>
+        <li><a href="#bespoke" class="nav-link">Bespoke Studio</a></li>
+        <li><a href="#specifications" class="nav-link">Specifications</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="btn-audio-toggle" id="audioToggleBtn" title="Toggle Atmospheric Sound FX" aria-label="Toggle Sound">
+        <svg id="soundIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <svg id="soundIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+      </button>
+      <button class="btn-gold" id="openReserveBtn">Reserve Edition</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Scrollytelling Hero Section -->
+    <section class="scrolly-section" id="genesis">
+      <div class="scrolly-sticky">
+        
+        <!-- Ambient Radial Glow Behind Watch -->
+        <div class="canvas-ambient-glow"></div>
+
+        <!-- Canvas Frame Renderer -->
+        <div class="canvas-wrapper">
+          <canvas id="watchCanvas"></canvas>
+        </div>
+
+        <!-- Scrolly HUD Top Stats -->
+        <div class="scrolly-hud-top">
+          <div class="hud-badge">
+            <div class="hud-badge-dot"></div>
+            <span>Calibre Sequence // Realtime scrub</span>
+          </div>
+          <div class="hud-stats-group">
+            <div class="hud-stat-number" id="hudFrameNumber">001</div>
+            <div class="hud-stat-label">Atomic Frame Sync</div>
+          </div>
+        </div>
+
+        <!-- Story Narrative Cards Overlay -->
+        <div class="story-layers-container">
+          <!-- Phase 1 -->
+          <div class="story-card card-left active" id="storyPhase1">
+            <div class="story-phase">Phase I // Inception</div>
+            <h1 class="story-title">Forged in Starlight</h1>
+            <p class="story-desc">From quantum particle clouds to pure mechanical horology. Golden luminescence condenses with atomic precision onto the wrist.</p>
+            <div class="story-specs-pill">
+              <span class="spec-chip">Pure Energy</span>
+              <span class="spec-chip">Photon Crystallization</span>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="story-card card-right" id="storyPhase2">
+            <div class="story-phase">Phase II // Metallurgy</div>
+            <h2 class="story-title">18K Rose Gold Coalescence</h2>
+            <p class="story-desc">High-density solid gold alloy fuses seamlessly into a monobloc Oyster case, sculpted to endure 50 atmospheres of hydrostatic pressure.</p>
+            <div class="story-specs-pill">
+              <span class="spec-chip">18K Rose Alloy</span>
+              <span class="spec-chip">Hand-Polished Chamfers</span>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="story-card card-left" id="storyPhase3">
+            <div class="story-phase">Phase III // Complication</div>
+            <h2 class="story-title">The Emerald Dial & Heartbeat</h2>
+            <p class="story-desc">Sunburst deep-forest emerald dial with sapphire Cyclops date magnification and 28,800 vibrations-per-hour automatic escapement.</p>
+            <div class="story-specs-pill">
+              <span class="spec-chip">Emerald Sunburst</span>
+              <span class="spec-chip">72h Reserve</span>
+              <span class="spec-chip">Calibre 8800</span>
+            </div>
+          </div>
+
+          <!-- Phase 4 -->
+          <div class="story-card card-center" id="storyPhase4">
+            <div class="story-phase">Phase IV // Perfection</div>
+            <h2 class="story-title">Titan Sovereign Emerald</h2>
+            <p class="story-desc">The ultimate convergence of astronomical aesthetics and master watchmaking. Interact with the hotspot markers below to explore fine details.</p>
+            <div class="story-specs-pill" style="justify-content: center;">
+              <span class="spec-chip">Swiss Certified Chronometer</span>
+              <span class="spec-chip">Super-LumiNova</span>
+              <span class="spec-chip">Limited 500 Pieces</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Hotspot Markers (Revealed at end of sequence) -->
+        <div class="hotspots-layer" id="hotspotsLayer">
+          <!-- Dial Hotspot -->
+          <div class="hotspot-pin" style="top: 48%; left: 51%;">
+            <div class="hotspot-beacon">
+              <div class="hotspot-inner-dot"></div>
+            </div>
+            <div class="hotspot-tooltip">
+              <div class="hotspot-tip-title">Emerald Sunburst Dial</div>
+              <div class="hotspot-tip-desc">Deep galvanic lacquer finish with 18K gold hour appliques and date magnifier.</div>
+            </div>
+          </div>
+
+          <!-- Bezel Hotspot -->
+          <div class="hotspot-pin" style="top: 32%; left: 49%;">
+            <div class="hotspot-beacon">
+              <div class="hotspot-inner-dot"></div>
+            </div>
+            <div class="hotspot-tooltip">
+              <div class="hotspot-tip-title">Fluted Gold Bezel</div>
+              <div class="hotspot-tip-desc">Diamond-machined light-refracting fluted contours in 18K rose gold.</div>
+            </div>
+          </div>
+
+          <!-- Crown Hotspot -->
+          <div class="hotspot-pin" style="top: 44%; left: 63%;">
+            <div class="hotspot-beacon">
+              <div class="hotspot-inner-dot"></div>
+            </div>
+            <div class="hotspot-tooltip">
+              <div class="hotspot-tip-title">Triplock Crown</div>
+              <div class="hotspot-tip-desc">Hermetically sealed screw-down system with embossed Titan hallmark.</div>
+            </div>
+          </div>
+
+          <!-- Bracelet Hotspot -->
+          <div class="hotspot-pin" style="top: 75%; left: 50%;">
+            <div class="hotspot-beacon">
+              <div class="hotspot-inner-dot"></div>
+            </div>
+            <div class="hotspot-tooltip">
+              <div class="hotspot-tip-title">Solid Link Bracelet</div>
+              <div class="hotspot-tip-desc">Satin-brushed outer links and mirror-polished center link with concealed clasp.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Controls Dock -->
+        <div class="scrolly-controls-dock">
+          <button class="dock-btn" id="playPauseBtn" title="Cinematic Auto Play / Pause" aria-label="Play / Pause">
+            <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg id="pauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+
+          <button class="dock-btn" id="rewindBtn" title="Restart Transformation" aria-label="Restart Sequence">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"></path><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+          </button>
+
+          <div class="dock-slider-wrap">
+            <input type="range" id="timelineScrubber" class="dock-range" min="1" max="210" value="1" step="1" aria-label="Scrub Watch Animation Frame">
+          </div>
+
+          <div class="dock-frame-counter" id="frameCounter">001 / 210</div>
+
+          <div class="scroll-hint-pill">
+            <div class="scroll-mouse-icon"></div>
+            <span>Scroll or Drag</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Craftsmanship & Engineering Section -->
+    <section class="section" id="craftsmanship">
+      <div class="section-header">
+        <span class="section-tag">Haute Horlogerie</span>
+        <h2 class="section-title">Mastery in Every <span>Micron</span></h2>
+        <p class="section-subtitle">Crafted without compromise. Each Titan Sovereign requires over 180 hours of hand-finishing by master horologists.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <article class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3 class="feature-title">Calibre 8800 Automatic</h3>
+          <p class="feature-desc">Self-winding mechanical movement with silicon balance spring, resistant to magnetic fields up to 15,000 gauss.</p>
+          <div class="feature-stats">
+            <div class="feature-stat-item">
+              <span>28,800</span>
+              <span>vph Frequency</span>
+            </div>
+            <div class="feature-stat-item">
+              <span>72 Hours</span>
+              <span>Power Reserve</span>
+            </div>
+            <div class="feature-stat-item">
+              <span>31</span>
+              <span>Jewels</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          </div>
+          <h3 class="feature-title">18K Everose Gold</h3>
+          <p class="feature-desc">Proprietary gold alloy enriched with platinum for eternal luster that never fades, even when exposed to saltwater.</p>
+          <div class="feature-stats">
+            <div class="feature-stat-item">
+              <span>750‰</span>
+              <span>Gold Purity</span>
+            </div>
+            <div class="feature-stat-item">
+              <span>50m</span>
+              <span>Waterproof</span>
+            </div>
+            <div class="feature-stat-item">
+              <span>Mirror</span>
+              <span>Hand Polish</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          </div>
+          <h3 class="feature-title">Emerald Sunburst & Sapphire</h3>
+          <p class="feature-desc">Double anti-reflective synthetic sapphire crystal with integrated Cyclops date lens offering 2.5x magnification.</p>
+          <div class="feature-stats">
+            <div class="feature-stat-item">
+              <span>9 Mohs</span>
+              <span>Hardness</span>
+            </div>
+            <div class="feature-stat-item">
+              <span>2.5x</span>
+              <span>Cyclops Lens</span>
+            </div>
+            <div class="feature-stat-item">
+              <span>Anti-Glare</span>
+              <span>Dual Coating</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Interactive Bespoke Studio & Customizer -->
+    <section class="section" id="bespoke">
+      <div class="section-header">
+        <span class="section-tag">Atelier Personalization</span>
+        <h2 class="section-title">Bespoke <span>Studio</span></h2>
+        <p class="section-subtitle">Tailor your Sovereign timepiece with custom strap variations, night luminescence preview, and custom caseback monogram engraving.</p>
+      </div>
+
+      <div class="bespoke-container">
+        <!-- Visual Display -->
+        <div class="studio-visual-panel">
+          <div class="studio-mode-badge" id="studioModeBadge">Daylight Specular</div>
+          <img src="frames/ezgif-frame-210.jpg" alt="Titan Sovereign Watch Configuration" class="studio-watch-preview" id="studioWatchImg">
+          <div class="engraving-live-render" id="engravingLiveBadge">MONOGRAM: TITAN-001</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="studio-config-panel">
+          
+          <!-- Strap Selection -->
+          <div class="config-group">
+            <div class="config-group-title">
+              <span>1. Select Bracelet Finish</span>
+              <span style="font-size:0.8rem; color:var(--gold-400);" id="selectedStrapName">18K Solid Rose Gold</span>
+            </div>
+            <div class="config-options-row">
+              <button class="option-btn active" data-strap="gold" data-price="0">
+                <span class="option-name">Solid Gold Link</span>
+                <span class="option-sub">Included (18K)</span>
+              </button>
+              <button class="option-btn" data-strap="leather" data-price="850">
+                <span class="option-name">Cognac Alligator</span>
+                <span class="option-sub">+ $850 Bespoke</span>
+              </button>
+              <button class="option-btn" data-strap="rubber" data-price="450">
+                <span class="option-name">Emerald Rubber</span>
+                <span class="option-sub">+ $450 Sport</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Lume View Toggle -->
+          <div class="config-group">
+            <div class="config-group-title">
+              <span>2. Dial Luminescence Mode</span>
+            </div>
+            <div class="config-options-row">
+              <button class="option-btn active" id="lumeDayBtn">
+                <span class="option-name">☀️ Daylight Luxury</span>
+                <span class="option-sub">Polished Sunburst</span>
+              </button>
+              <button class="option-btn" id="lumeNightBtn">
+                <span class="option-name">✨ Super-LumiNova</span>
+                <span class="option-sub">Emerald Dark Glow</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Custom Engraving Input -->
+          <div class="config-group">
+            <div class="config-group-title">
+              <span>3. Bespoke Caseback Engraving</span>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Max 18 Chars</span>
+            </div>
+            <div class="engraving-input-wrap">
+              <input type="text" id="engravingInput" class="engraving-input" maxlength="18" placeholder="ENTER YOUR MONOGRAM OR DATE" value="TITAN-001">
+            </div>
+          </div>
+
+          <!-- Summary & Order CTA -->
+          <div class="bespoke-summary-footer">
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;">Total Valuation</div>
+              <div class="bespoke-price-tag" id="configPrice">$24,500 USD</div>
+            </div>
+            <button class="btn-gold" id="orderCustomBtn">Acquire Custom Piece</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Specifications Matrix -->
+    <section class="section" id="specifications">
+      <div class="section-header">
+        <span class="section-tag">Technical Data</span>
+        <h2 class="section-title">The Master <span>Specifications</span></h2>
+        <p class="section-subtitle">Every tolerance verified to 1/1000th of a millimeter for absolute chronometric stability.</p>
+      </div>
+
+      <div class="specs-matrix-container">
+        <!-- Row 1 -->
+        <div class="specs-row">
+          <div class="spec-category">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+            <span>Case & Architecture</span>
+          </div>
+          <div class="spec-details-list">
+            <div>
+              <div class="spec-detail-key">Diameter</div>
+              <div class="spec-detail-val">41.0 mm</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Thickness</div>
+              <div class="spec-detail-val">11.8 mm</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Material</div>
+              <div class="spec-detail-val">18K Everose Gold Monobloc</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Water Resistance</div>
+              <div class="spec-detail-val">50 Metres / 5 ATM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="specs-row">
+          <div class="spec-category">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Movement & Calibre</span>
+          </div>
+          <div class="spec-details-list">
+            <div>
+              <div class="spec-detail-key">Calibre</div>
+              <div class="spec-detail-val">Titan Manufacture 8800</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Winding</div>
+              <div class="spec-detail-val">Bidirectional Self-Winding</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Precision</div>
+              <div class="spec-detail-val">-2/+2 sec/day (COSC certified)</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Power Reserve</div>
+              <div class="spec-detail-val">72 Hours approx.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="specs-row">
+          <div class="spec-category">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Dial & Crystal</span>
+          </div>
+          <div class="spec-details-list">
+            <div>
+              <div class="spec-detail-key">Dial</div>
+              <div class="spec-detail-val">Emerald Forest Sunburst</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Crystal</div>
+              <div class="spec-detail-val">Scratch-resistant Sapphire</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Magnifier</div>
+              <div class="spec-detail-val">Cyclops Lens over date (2.5x)</div>
+            </div>
+            <div>
+              <div class="spec-detail-key">Luminescence</div>
+              <div class="spec-detail-val">Chromalight / Super-LumiNova</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- VIP Concierge Pre-Order Modal -->
+  <div class="modal-backdrop" id="reserveModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      
+      <!-- Form Screen -->
+      <div id="modalFormScreen">
+        <div class="modal-header">
+          <h3 class="modal-title">VIP Concierge Reservation</h3>
+          <p class="modal-subtitle">Secure your allocation for the Titan Sovereign Emerald Edition.</p>
+        </div>
+
+        <form class="modal-form" id="reserveForm">
+          <div class="form-group">
+            <label class="form-label" for="vipName">Collector's Full Name</label>
+            <input type="text" id="vipName" class="form-input" placeholder="e.g. Lord Alexander Sterling" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="vipEmail">Private Concierge Email</label>
+            <input type="email" id="vipEmail" class="form-input" placeholder="e.g. alexander@private.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="vipCity">Private Delivery Destination</label>
+            <input type="text" id="vipCity" class="form-input" placeholder="e.g. Geneva, London, Dubai, New York" required>
+          </div>
+
+          <button type="submit" class="btn-gold" style="width: 100%; margin-top: 10px;">Confirm VIP Allocation</button>
+        </form>
+      </div>
+
+      <!-- Success Screen -->
+      <div class="modal-success-screen" id="modalSuccessScreen">
+        <div class="brand-emblem" style="margin: 0 auto 16px auto; width: 56px; height: 56px; font-size: 1.6rem;">T</div>
+        <h3 class="modal-title">Allocation Confirmed</h3>
+        <p class="modal-subtitle">Your private concierge will contact you within 2 business hours.</p>
+        
+        <div class="certificate-card">
+          <div style="font-size: 0.75rem; color: var(--gold-400); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px;">Certificate of Horological Provenance</div>
+          <div class="cert-serial" id="certSerial">TT-2026-EMERALD-8892</div>
+          <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 8px;" id="certOwner">Issued to: Lord Alexander Sterling</div>
+        </div>
+
+        <button class="btn-outline-gold" id="doneModalBtn" style="width: 100%;">Done</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Luxury Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="brand-logo">
+          <div class="brand-emblem">T</div>
+          <span class="brand-name">Titan Sovereign</span>
+        </a>
+        <p class="footer-brand-desc">Masterpieces of eternal precision and astronomical aesthetics. Hand-engineered for discerning collectors across the globe.</p>
+      </div>
+
+      <div>
+        <div class="footer-column-title">Manufacture</div>
+        <ul class="footer-links-list">
+          <li><a href="#genesis" class="footer-link">The Genesis Sequence</a></li>
+          <li><a href="#craftsmanship" class="footer-link">Calibre 8800 Movement</a></li>
+          <li><a href="#bespoke" class="footer-link">Atelier Customization</a></li>
+          <li><a href="#specifications" class="footer-link">Technical Ledger</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-column-title">Services</div>
+        <ul class="footer-links-list">
+          <li><a href="#bespoke" class="footer-link">Bespoke Monogramming</a></li>
+          <li><a href="#" class="footer-link">5-Year International Warranty</a></li>
+          <li><a href="#" class="footer-link">Private Courier Delivery</a></li>
+          <li><a href="#" class="footer-link">VIP Concierge Service</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-column-title">VIP Dispatch</div>
+        <p style="font-size: 0.86rem; color: var(--text-dim); margin-bottom: 14px;">Receive confidential invites to limited horology debuts.</p>
+        <div style="display:flex; gap: 8px;">
+          <input type="email" placeholder="Your VIP email" class="form-input" style="flex:1;">
+          <button class="btn-gold" style="padding: 10px 16px;">Join</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 TITAN HOROLOGY S.A. All rights reserved. Registered Swiss Master Timepiece.</div>
+      <div style="display:flex; gap: 24px;">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Provenance</a>
+        <a href="#" class="footer-link">Heritage Archives</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
