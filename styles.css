@@ -2,13 +2,13 @@
    TITAN HOROLOGY - LUXURY DESIGN SYSTEM & STYLES
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   --bg-dark: #06070a;
   --bg-surface: #0c0f16;
-  --bg-card: rgba(15, 19, 28, 0.75);
-  --bg-card-hover: rgba(22, 28, 40, 0.88);
+  --bg-card: rgba(14, 18, 26, 0.78);
+  --bg-card-hover: rgba(20, 26, 38, 0.9);
   --bg-glass: rgba(255, 255, 255, 0.035);
   
   --gold-glow: rgba(212, 175, 55, 0.35);
@@ -26,7 +26,7 @@
   --emerald-500: #10b981;
   --emerald-600: #059669;
   --emerald-dark: #062b1b;
-  --emerald-glow: rgba(16, 185, 129, 0.4);
+  --emerald-glow: rgba(16, 185, 129, 0.35);
   --emerald-gradient: linear-gradient(135deg, #34d399 0%, #059669 60%, #064e3b 100%);
   
   --text-main: #f8fafc;
@@ -41,6 +41,7 @@
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
+  --radius-xl: 32px;
   --radius-full: 9999px;
 
   --font-serif: 'Cinzel', Georgia, serif;
@@ -91,7 +92,7 @@ body {
   background: rgba(212, 175, 55, 0.5);
 }
 
-/* Background Ambient Grid */
+/* Ambient Grid Overlay */
 .bg-ambient-grid {
   position: fixed;
   inset: 0;
@@ -200,16 +201,16 @@ body {
   transition: width 0.15s ease-out;
 }
 
-/* Keyframes */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes spinReverse {
-  to { transform: rotate(-360deg); }
-}
+/* Animations */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spinReverse { to { transform: rotate(-360deg); } }
 @keyframes pulseGlow {
   0%, 100% { opacity: 0.6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.05); }
+}
+@keyframes floatCloud {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
 /* ==========================================================================
@@ -276,14 +277,14 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   list-style: none;
 }
 
 .nav-link {
   color: var(--text-dim);
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -767,394 +768,451 @@ body {
 }
 
 /* ==========================================================================
-   INTERACTIVE HOTSPOTS OVERLAY
+   REALISTIC FINANCIAL & VALUATION PRICE HISTORY GRAPH SECTION
    ========================================================================== */
-.hotspots-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 20;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.hotspots-layer.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.hotspot-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-}
-
-.hotspot-beacon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(212, 175, 55, 0.2);
-  border: 2px solid var(--gold-400);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.hotspot-beacon::after {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 1px solid var(--gold-300);
-  animation: pulseGlow 2s infinite;
-}
-
-.hotspot-inner-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 10px #ffffff;
-}
-
-.hotspot-pin:hover .hotspot-beacon {
-  transform: scale(1.25);
-  background: rgba(212, 175, 55, 0.4);
-}
-
-.hotspot-tooltip {
-  position: absolute;
-  bottom: calc(100% + 14px);
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-gold);
-  border-radius: var(--radius-md);
-  padding: 14px 18px;
-  min-width: 220px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-}
-
-.hotspot-pin:hover .hotspot-tooltip,
-.hotspot-pin.active .hotspot-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.hotspot-tip-title {
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
-  color: var(--gold-300);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.hotspot-tip-desc {
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  line-height: 1.4;
-}
-
-/* ==========================================================================
-   TITAN STELLAR EMERALD CHRONOGRAPH - FLAGSHIP SPOTLIGHT SECTION
-   ========================================================================== */
-.chronograph-spotlight-section {
+.analytics-section {
   position: relative;
   padding: 120px 5%;
-  background: radial-gradient(circle at 30% 50%, rgba(6, 78, 59, 0.25) 0%, rgba(6, 7, 10, 0.95) 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(8, 28, 22, 0.4) 0%, rgba(6, 7, 10, 0.98) 75%);
   border-top: 1px solid var(--border-emerald);
-  border-bottom: 1px solid var(--border-emerald);
-  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
   z-index: 10;
 }
 
-/* Radiant emerald rays in background */
-.chrono-ambient-rays {
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  transform: translate(-50%, -50%);
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(6, 78, 59, 0.08) 40%, transparent 70%);
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-  animation: pulseGlow 8s ease-in-out infinite alternate;
-}
-
-.chrono-container {
-  max-width: 1300px;
+.analytics-container {
+  max-width: 1280px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 60px;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-
-/* 3D Tilt Card */
-.chrono-visual-wrapper {
-  position: relative;
-  perspective: 1200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.chrono-3d-card {
-  position: relative;
-  width: 100%;
-  max-width: 520px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, rgba(15, 30, 24, 0.7), rgba(8, 14, 18, 0.9));
-  border: 1px solid var(--border-emerald);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(16, 185, 129, 0.25);
-  overflow: hidden;
-  padding: 16px;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-  transform-style: preserve-3d;
-}
-
-.chrono-watch-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: var(--radius-md);
-  object-fit: cover;
-  filter: contrast(1.05) brightness(1.02);
-  transition: transform 0.4s ease;
-}
-
-.chrono-glare-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
-  pointer-events: none;
-  border-radius: var(--radius-lg);
-}
-
-.chrono-badge-pill {
-  position: absolute;
-  top: 32px;
-  left: 32px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  background: rgba(6, 43, 27, 0.85);
-  border: 1px solid var(--emerald-400);
-  backdrop-filter: blur(12px);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--emerald-300);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  z-index: 10;
-}
-
-/* Hotspots on the Chronograph Poster */
-.chrono-hotspot-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  z-index: 15;
-}
-
-.chrono-hotspot-beacon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(16, 185, 129, 0.25);
-  border: 2px solid var(--emerald-400);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-
-.chrono-hotspot-beacon::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1px solid var(--emerald-300);
-  animation: pulseGlow 1.8s infinite;
-}
-
-.chrono-hotspot-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ffffff;
-}
-
-.chrono-hotspot-pin:hover .chrono-hotspot-beacon {
-  transform: scale(1.3);
-}
-
-.chrono-hotspot-tooltip {
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: rgba(8, 20, 16, 0.95);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--emerald-400);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  min-width: 210px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
-  z-index: 30;
-}
-
-.chrono-hotspot-pin:hover .chrono-hotspot-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Chronograph Content Right Panel */
-.chrono-info-panel {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 40px;
 }
 
-.chrono-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  color: var(--emerald-400);
-  text-transform: uppercase;
-}
-
-.chrono-title {
-  font-family: var(--font-serif);
-  font-size: 2.8rem;
-  font-weight: 700;
-  line-height: 1.15;
-  color: #ffffff;
-}
-
-.chrono-title span {
-  background: var(--emerald-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.chrono-desc {
-  font-size: 1.05rem;
-  color: var(--text-dim);
-  line-height: 1.7;
-}
-
-/* Interactive Chrono Stopwatch Widget */
-.chrono-stopwatch-widget {
-  background: rgba(10, 24, 18, 0.7);
+.analytics-card {
+  background: var(--bg-card);
   border: 1px solid var(--border-emerald);
   border-radius: var(--radius-lg);
-  padding: 24px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  padding: 36px 40px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(16, 185, 129, 0.12);
+  position: relative;
+  overflow: hidden;
 }
 
-.stopwatch-header {
+.analytics-header-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--emerald-300);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 30px;
 }
 
-.stopwatch-display {
-  font-family: var(--font-mono);
-  font-size: 2.6rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 20px var(--emerald-glow);
-  margin-bottom: 18px;
-  text-align: center;
-}
-
-.stopwatch-actions {
+.analytics-live-price-group {
   display: flex;
-  gap: 12px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.chrono-features-pills {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.analytics-model-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+.analytics-price-number {
+  font-family: var(--font-serif);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
   gap: 14px;
 }
 
-.chrono-feat-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-}
-
-.chrono-feat-icon {
-  color: var(--emerald-400);
-  margin-top: 2px;
-}
-
-.chrono-feat-title {
+.analytics-roi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid var(--emerald-400);
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 2px;
+  color: var(--emerald-300);
 }
 
-.chrono-feat-sub {
-  font-size: 0.78rem;
+.analytics-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.model-toggle-pill {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  gap: 4px;
+}
+
+.model-pill-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.model-pill-btn.active {
+  background: var(--emerald-gradient);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
+}
+
+.timeframe-pill-wrap {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  gap: 4px;
+}
+
+.time-btn {
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.time-btn.active {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--gold-300);
+  border: 1px solid var(--border-gold);
+}
+
+/* Graph Canvas Canvas Frame */
+.chart-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  margin-bottom: 24px;
+}
+
+#priceGraphCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chart-hover-tooltip {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(8, 14, 20, 0.95);
+  border: 1px solid var(--emerald-400);
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  transition: opacity 0.2s ease;
+  font-family: var(--font-mono);
+}
+
+.tooltip-date {
+  font-size: 0.8rem;
   color: var(--text-dim);
 }
 
-.chrono-price-cta-row {
+.tooltip-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--emerald-300);
+}
+
+.tooltip-delta {
+  font-size: 0.82rem;
+  color: var(--gold-300);
+}
+
+/* Financial KPI Matrix */
+.analytics-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 24px;
+}
+
+.kpi-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi-label {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.kpi-value {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.kpi-sub {
+  font-size: 0.74rem;
+  color: var(--emerald-400);
+}
+
+/* ==========================================================================
+   FLOATING CLOUD MESSAGES & PRODUCT DESCRIPTION HUD
+   ========================================================================== */
+.cloud-insights-section {
+  position: relative;
+  padding: 120px 5%;
+  background: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.08) 0%, rgba(6, 7, 10, 0.98) 70%);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 10;
+}
+
+.clouds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 32px;
+  max-width: 1280px;
+  margin: 0 auto 50px auto;
+}
+
+/* Individual Cloud Message Bubble Card */
+.cloud-bubble-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(16, 22, 32, 0.82) 0%, rgba(10, 14, 22, 0.92) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.1);
+  transition: all var(--transition-smooth);
+  animation: floatCloud 6s ease-in-out infinite alternate;
+}
+
+.cloud-bubble-card:nth-child(2) {
+  border-color: var(--border-emerald);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(16, 185, 129, 0.12);
+  animation-delay: 1.5s;
+}
+
+.cloud-bubble-card:nth-child(3) {
+  animation-delay: 3s;
+}
+
+.cloud-bubble-card:nth-child(4) {
+  border-color: var(--border-emerald);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(16, 185, 129, 0.12);
+  animation-delay: 4.5s;
+}
+
+.cloud-bubble-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85), 0 0 45px rgba(212, 175, 55, 0.25);
+}
+
+.cloud-bubble-card:nth-child(2):hover,
+.cloud-bubble-card:nth-child(4):hover {
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85), 0 0 45px rgba(16, 185, 129, 0.3);
+}
+
+/* Cloud speech tail notch */
+.cloud-tail {
+  position: absolute;
+  bottom: -10px;
+  left: 45px;
+  width: 20px;
+  height: 20px;
+  background: rgba(10, 14, 22, 0.95);
+  border-right: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  transform: rotate(45deg);
+}
+
+.cloud-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 20px;
+  margin-bottom: 18px;
 }
 
-.chrono-price-tag {
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
-  font-weight: 700;
+.cloud-avatar-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cloud-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-300);
+  font-size: 1.2rem;
+}
+
+.cloud-icon-circle.emerald {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--emerald-400);
   color: var(--emerald-300);
+}
+
+.cloud-sender-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.cloud-timestamp {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.cloud-body-text {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.cloud-body-text strong {
+  color: #ffffff;
+}
+
+.cloud-datapoints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+}
+
+.cloud-point-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.cloud-point-label {
+  color: var(--text-muted);
+}
+
+.cloud-point-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--gold-300);
+}
+
+.cloud-point-val.emerald {
+  color: var(--emerald-300);
+}
+
+/* Interactive Concierge Query Bar */
+.concierge-query-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(12, 17, 25, 0.8);
+  border: 1px solid var(--border-emerald);
+  border-radius: var(--radius-xl);
+  padding: 36px 40px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+}
+
+.concierge-query-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.query-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.query-chip-btn {
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.query-chip-btn:hover, .query-chip-btn.active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--emerald-400);
+  color: var(--emerald-300);
+}
+
+.concierge-live-response-box {
+  background: rgba(6, 10, 14, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.7;
+  position: relative;
+}
+
+.concierge-live-response-box::before {
+  content: '💬';
+  position: absolute;
+  top: 18px;
+  left: -12px;
+  font-size: 1.2rem;
 }
 
 /* ==========================================================================
@@ -1168,7 +1226,7 @@ body {
 
 .section-header {
   text-align: center;
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto 70px auto;
 }
 
@@ -1202,101 +1260,6 @@ body {
   font-size: 1.1rem;
   color: var(--text-dim);
   line-height: 1.7;
-}
-
-/* ==========================================================================
-   CRAFTSMANSHIP & PILLARS GRID
-   ========================================================================== */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.feature-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 40px 32px;
-  position: relative;
-  overflow: hidden;
-  transition: all var(--transition-smooth);
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--gold-gradient);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-
-.feature-card:hover {
-  border-color: var(--border-gold);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15);
-  background: var(--bg-card-hover);
-}
-
-.feature-card:hover::before {
-  opacity: 1;
-}
-
-.feature-icon-box {
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(0,0,0,0.5));
-  border: 1px solid var(--border-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold-400);
-  font-size: 1.5rem;
-  margin-bottom: 24px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-}
-
-.feature-title {
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  color: var(--text-main);
-  margin-bottom: 12px;
-}
-
-.feature-desc {
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  line-height: 1.65;
-  margin-bottom: 24px;
-}
-
-.feature-stats {
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 16px;
-}
-
-.feature-stat-item span:first-child {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--gold-300);
-}
-
-.feature-stat-item span:last-child {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  text-transform: uppercase;
 }
 
 /* ==========================================================================
@@ -1729,10 +1692,6 @@ body {
    RESPONSIVE DESIGN (MEDIA QUERIES)
    ========================================================================== */
 @media (max-width: 1024px) {
-  .chrono-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
   .bespoke-container {
     grid-template-columns: 1fr;
     padding: 40px 30px;
@@ -1740,6 +1699,9 @@ body {
   .specs-row {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+  .clouds-grid {
+    grid-template-columns: 1fr;
   }
   .footer-top {
     grid-template-columns: 1fr 1fr;
@@ -1772,14 +1734,17 @@ body {
   .scroll-hint-pill {
     display: none;
   }
-  .chrono-title {
-    font-size: 2.2rem;
+  .analytics-price-number {
+    font-size: 2.4rem;
+  }
+  .analytics-card {
+    padding: 24px 18px;
+  }
+  .chart-canvas-wrap {
+    height: 260px;
   }
   .section-title {
     font-size: 2.2rem;
-  }
-  .chrono-features-pills {
-    grid-template-columns: 1fr;
   }
   .footer-top {
     grid-template-columns: 1fr;

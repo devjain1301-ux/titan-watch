@@ -1,6 +1,6 @@
 /**
- * TITAN HOROLOGY - Interactive Scrollytelling, Chronograph Showcase & Bespoke Studio Engine
- * High-performance HTML5 Canvas Sequence Renderer with Web Audio synthesis
+ * TITAN HOROLOGY - Interactive Scrollytelling, Valuation Graph & Cloud Intelligence Engine
+ * High-performance HTML5 Canvas Sequence Renderer with Web Audio synthesis & Financial Charting
  */
 
 (function () {
@@ -26,7 +26,6 @@
   const playIcon = document.getElementById('playIcon');
   const pauseIcon = document.getElementById('pauseIcon');
   const rewindBtn = document.getElementById('rewindBtn');
-  const hotspotsLayer = document.getElementById('hotspotsLayer');
   const audioToggleBtn = document.getElementById('audioToggleBtn');
   const soundIconOn = document.getElementById('soundIconOn');
   const soundIconOff = document.getElementById('soundIconOff');
@@ -39,15 +38,27 @@
     document.getElementById('storyPhase4'),
   ];
 
-  // Chronograph Showcase Elements
-  const chronoTiltCard = document.getElementById('chronoTiltCard');
-  const chronoGlare = document.getElementById('chronoGlare');
-  const stopwatchTime = document.getElementById('stopwatchTime');
-  const stopwatchStatus = document.getElementById('stopwatchStatus');
-  const chronoStartBtn = document.getElementById('chronoStartBtn');
-  const chronoLapBtn = document.getElementById('chronoLapBtn');
-  const chronoResetBtn = document.getElementById('chronoResetBtn');
-  const reserveChronoBtn = document.getElementById('reserveChronoBtn');
+  // Price Graph Elements
+  const priceGraphCanvas = document.getElementById('priceGraphCanvas');
+  const chartCtx = priceGraphCanvas ? priceGraphCanvas.getContext('2d') : null;
+  const chartTooltip = document.getElementById('chartTooltip');
+  const tooltipDate = document.getElementById('tooltipDate');
+  const tooltipVal = document.getElementById('tooltipVal');
+  const tooltipDelta = document.getElementById('tooltipDelta');
+  const chartModelTitle = document.getElementById('chartModelTitle');
+  const chartLivePriceDisplay = document.getElementById('chartLivePriceDisplay');
+  const chartRoiBadge = document.getElementById('chartRoiBadge');
+  const chartSovereignBtn = document.getElementById('chartSovereignBtn');
+  const chartChronoBtn = document.getElementById('chartChronoBtn');
+  const timeButtons = document.querySelectorAll('.time-btn');
+  const kpiMSRP = document.getElementById('kpiMSRP');
+  const kpiATH = document.getElementById('kpiATH');
+  const kpiLiquidity = document.getElementById('kpiLiquidity');
+  const kpiForecast = document.getElementById('kpiForecast');
+
+  // Concierge Elements
+  const queryChipBtns = document.querySelectorAll('.query-chip-btn');
+  const conciergeResponseText = document.getElementById('conciergeResponseText');
 
   // Bespoke studio elements
   const studioWatchImg = document.getElementById('studioWatchImg');
@@ -88,23 +99,135 @@
   let audioCtx = null;
   
   // Bespoke State
-  let currentModel = 'sovereign'; // 'sovereign' | 'chrono'
+  let currentModel = 'sovereign';
   let basePrice = 24500;
   let strapAddon = 0;
 
-  // Stopwatch State
-  let swRunning = false;
-  let swStartTime = 0;
-  let swElapsed = 0;
-  let swInterval = null;
+  // Chart Data & State
+  let activeChartModel = 'sovereign';
+  let activeTimeframe = '1Y';
+  let mouseChartX = null;
 
-  // --- Frame Path Helper ---
+  const chartDataSets = {
+    sovereign: {
+      title: 'Titan Sovereign Everose (41mm)',
+      currentPrice: '$24,500',
+      roi: '+27.6% (1Y)',
+      msrp: '$19,200',
+      ath: '$25,800',
+      liquidity: '98.4 / 100',
+      forecast: '$31,200',
+      timeframes: {
+        '1M': [
+          { date: 'Jul 12', price: 23900 },
+          { date: 'Jul 19', price: 24100 },
+          { date: 'Jul 26', price: 24050 },
+          { date: 'Aug 02', price: 24350 },
+          { date: 'Aug 09', price: 24500 },
+        ],
+        '6M': [
+          { date: 'Feb 2026', price: 21800 },
+          { date: 'Mar 2026', price: 22400 },
+          { date: 'Apr 2026', price: 22900 },
+          { date: 'May 2026', price: 23500 },
+          { date: 'Jun 2026', price: 23800 },
+          { date: 'Jul 2026', price: 24200 },
+          { date: 'Aug 2026', price: 24500 },
+        ],
+        '1Y': [
+          { date: 'Aug 2025', price: 19200 },
+          { date: 'Oct 2025', price: 20100 },
+          { date: 'Dec 2025', price: 21200 },
+          { date: 'Feb 2026', price: 21900 },
+          { date: 'Apr 2026', price: 23100 },
+          { date: 'Jun 2026', price: 23950 },
+          { date: 'Aug 2026', price: 24500 },
+        ],
+        '3Y': [
+          { date: '2023 Q3', price: 16500 },
+          { date: '2024 Q1', price: 17400 },
+          { date: '2024 Q3', price: 18300 },
+          { date: '2025 Q1', price: 18900 },
+          { date: '2025 Q3', price: 20200 },
+          { date: '2026 Q1', price: 22500 },
+          { date: '2026 Q3', price: 24500 },
+        ],
+        'ALL': [
+          { date: 'Genesis 2022', price: 14800 },
+          { date: '2023', price: 16800 },
+          { date: '2024', price: 18500 },
+          { date: '2025', price: 20400 },
+          { date: '2026 Present', price: 24500 },
+        ]
+      }
+    },
+    chrono: {
+      title: 'Titan Stellar Emerald Chronograph (43mm)',
+      currentPrice: '$1,290',
+      roi: '+22.8% (1Y)',
+      msrp: '$1,050',
+      ath: '$1,350',
+      liquidity: '96.2 / 100',
+      forecast: '$1,750',
+      timeframes: {
+        '1M': [
+          { date: 'Jul 12', price: 1240 },
+          { date: 'Jul 19', price: 1255 },
+          { date: 'Jul 26', price: 1260 },
+          { date: 'Aug 02', price: 1280 },
+          { date: 'Aug 09', price: 1290 },
+        ],
+        '6M': [
+          { date: 'Feb 2026', price: 1120 },
+          { date: 'Mar 2026', price: 1150 },
+          { date: 'Apr 2026', price: 1190 },
+          { date: 'May 2026', price: 1220 },
+          { date: 'Jun 2026', price: 1250 },
+          { date: 'Jul 2026', price: 1275 },
+          { date: 'Aug 2026', price: 1290 },
+        ],
+        '1Y': [
+          { date: 'Aug 2025', price: 1050 },
+          { date: 'Oct 2025', price: 1090 },
+          { date: 'Dec 2025', price: 1140 },
+          { date: 'Feb 2026', price: 1180 },
+          { date: 'Apr 2026', price: 1220 },
+          { date: 'Jun 2026', price: 1260 },
+          { date: 'Aug 2026', price: 1290 },
+        ],
+        '3Y': [
+          { date: '2023 Q3', price: 890 },
+          { date: '2024 Q1', price: 930 },
+          { date: '2024 Q3', price: 980 },
+          { date: '2025 Q1', price: 1020 },
+          { date: '2025 Q3', price: 1090 },
+          { date: '2026 Q1', price: 1190 },
+          { date: '2026 Q3', price: 1290 },
+        ],
+        'ALL': [
+          { date: 'Release 2023', price: 850 },
+          { date: '2024', price: 960 },
+          { date: '2025', price: 1080 },
+          { date: '2026 Present', price: 1290 },
+        ]
+      }
+    }
+  };
+
+  // Concierge Dialogue Database
+  const conciergeResponses = {
+    resale: '"The Titan Sovereign Everose has maintained an average secondary market premium of +27.6% across international horology auctions. With strict allocation caps of 500 numbered pieces, collectors benefit from sustained capital appreciation."',
+    movement: '"The Calibre 8800 Manufacture Movement boasts a 72-hour power reserve, Co-Axial Swiss escapement, and an anti-magnetic silicon hairspring tested to resist 15,000 Gauss. Each movement is individually COSC certified."',
+    chrono: '"The Stellar Emerald Chronograph features a triple-eye complication measuring 1/10th second intervals, 24-hour diurnal military time, and small seconds sweep housed in a PVD brushed titanium-steel case."',
+    delivery: '"Every allocated timepiece is transported in an armored diplomatic vault case with biometric seal, accompanied by an encrypted NFC physical certificate of authenticity and 5-year global concierge warranty."'
+  };
+
+  // --- Preload All 210 Frames ---
   function getFramePath(idx) {
     const padded = String(idx).padStart(3, '0');
     return `${FRAME_BASE_PATH}${padded}${FRAME_EXT}`;
   }
 
-  // --- Preload All 210 Frames ---
   function preloadImages() {
     let completed = 0;
 
@@ -143,6 +266,7 @@
       if (preloader) preloader.classList.add('loaded');
       setupResize();
       drawFrame(currentFrame);
+      setupPriceChart();
     }, 300);
   }
 
@@ -179,14 +303,6 @@
     }
 
     updateStoryCards(frameIdx);
-
-    if (hotspotsLayer) {
-      if (frameIdx >= 180) {
-        hotspotsLayer.classList.add('visible');
-      } else {
-        hotspotsLayer.classList.remove('visible');
-      }
-    }
   }
 
   function updateStoryCards(frameIdx) {
@@ -224,6 +340,7 @@
 
   // --- Setup Canvas for Retina & Screen Dimensions ---
   function setupResize() {
+    if (!canvas) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const rect = canvas.getBoundingClientRect();
     const width = rect.width || window.innerWidth;
@@ -233,6 +350,7 @@
     canvas.height = Math.floor(height * dpr);
 
     drawFrame(currentFrame);
+    setupPriceChart();
   }
 
   // --- Scroll Engine (Scrollytelling) ---
@@ -362,98 +480,247 @@
     });
   }
 
-  // --- 3D Interactive Perspective Tilt on Chronograph Card ---
-  if (chronoTiltCard) {
-    chronoTiltCard.addEventListener('mousemove', (e) => {
-      const rect = chronoTiltCard.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -12;
-      const rotateY = ((x - centerX) / centerX) * 12;
+  // --- REALISTIC PRICE HISTORY CANVAS GRAPH ENGINE ---
+  function setupPriceChart() {
+    if (!priceGraphCanvas || !chartCtx) return;
 
-      chronoTiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = priceGraphCanvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
 
-      if (chronoGlare) {
-        const glareX = (x / rect.width) * 100;
-        const glareY = (y / rect.height) * 100;
-        chronoGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.22) 0%, transparent 60%)`;
+    priceGraphCanvas.width = Math.floor(rect.width * dpr);
+    priceGraphCanvas.height = Math.floor(rect.height * dpr);
+
+    drawPriceChart();
+  }
+
+  function drawPriceChart() {
+    if (!priceGraphCanvas || !chartCtx) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cw = priceGraphCanvas.width;
+    const ch = priceGraphCanvas.height;
+    const dataObj = chartDataSets[activeChartModel];
+    const points = dataObj.timeframes[activeTimeframe];
+
+    chartCtx.clearRect(0, 0, cw, ch);
+
+    const paddingLeft = 60 * dpr;
+    const paddingRight = 30 * dpr;
+    const paddingTop = 30 * dpr;
+    const paddingBottom = 45 * dpr;
+
+    const plotW = cw - paddingLeft - paddingRight;
+    const plotH = ch - paddingTop - paddingBottom;
+
+    const prices = points.map(p => p.price);
+    const minPrice = Math.min(...prices) * 0.96;
+    const maxPrice = Math.max(...prices) * 1.04;
+    const priceRange = maxPrice - minPrice;
+
+    // Draw Horizontal Gridlines & Y-Axis Labels
+    chartCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    chartCtx.fillStyle = 'rgba(148, 163, 184, 0.7)';
+    chartCtx.font = `${11 * dpr}px 'Space Grotesk', sans-serif`;
+    chartCtx.textAlign = 'right';
+    chartCtx.textBaseline = 'middle';
+    chartCtx.lineWidth = 1 * dpr;
+
+    const gridSteps = 4;
+    for (let i = 0; i <= gridSteps; i++) {
+      const yVal = minPrice + (priceRange * (i / gridSteps));
+      const yPos = ch - paddingBottom - (plotH * (i / gridSteps));
+
+      chartCtx.beginPath();
+      chartCtx.moveTo(paddingLeft, yPos);
+      chartCtx.lineTo(cw - paddingRight, yPos);
+      chartCtx.stroke();
+
+      const labelStr = activeChartModel === 'sovereign' 
+        ? `$${(yVal / 1000).toFixed(1)}k` 
+        : `$${Math.round(yVal)}`;
+      chartCtx.fillText(labelStr, paddingLeft - (10 * dpr), yPos);
+    }
+
+    // Convert Points to Coordinates
+    const coords = points.map((p, idx) => {
+      const x = paddingLeft + (plotW * (idx / (points.length - 1)));
+      const y = ch - paddingBottom - (plotH * ((p.price - minPrice) / priceRange));
+      return { x, y, ...p };
+    });
+
+    // Draw Smooth Bézier Curve Path
+    chartCtx.beginPath();
+    chartCtx.moveTo(coords[0].x, coords[0].y);
+
+    for (let i = 0; i < coords.length - 1; i++) {
+      const p0 = coords[i];
+      const p1 = coords[i + 1];
+      const midX = (p0.x + p1.x) / 2;
+      chartCtx.bezierCurveTo(midX, p0.y, midX, p1.y, p1.x, p1.y);
+    }
+
+    // Gradient Fill Area
+    const fillGradient = chartCtx.createLinearGradient(0, paddingTop, 0, ch - paddingBottom);
+    if (activeChartModel === 'sovereign') {
+      fillGradient.addColorStop(0, 'rgba(212, 175, 55, 0.28)');
+      fillGradient.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
+    } else {
+      fillGradient.addColorStop(0, 'rgba(16, 185, 129, 0.32)');
+      fillGradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+    }
+
+    chartCtx.lineTo(coords[coords.length - 1].x, ch - paddingBottom);
+    chartCtx.lineTo(coords[0].x, ch - paddingBottom);
+    chartCtx.closePath();
+    chartCtx.fillStyle = fillGradient;
+    chartCtx.fill();
+
+    // Draw Glowing Line
+    chartCtx.beginPath();
+    chartCtx.moveTo(coords[0].x, coords[0].y);
+    for (let i = 0; i < coords.length - 1; i++) {
+      const p0 = coords[i];
+      const p1 = coords[i + 1];
+      const midX = (p0.x + p1.x) / 2;
+      chartCtx.bezierCurveTo(midX, p0.y, midX, p1.y, p1.x, p1.y);
+    }
+
+    chartCtx.strokeStyle = activeChartModel === 'sovereign' ? '#e7c365' : '#34d399';
+    chartCtx.lineWidth = 3 * dpr;
+    chartCtx.shadowColor = activeChartModel === 'sovereign' ? 'rgba(212, 175, 55, 0.6)' : 'rgba(16, 185, 129, 0.7)';
+    chartCtx.shadowBlur = 12 * dpr;
+    chartCtx.stroke();
+    chartCtx.shadowBlur = 0;
+
+    // Draw Data Point Beacons & X-Axis Labels
+    chartCtx.textAlign = 'center';
+    chartCtx.textBaseline = 'top';
+    chartCtx.fillStyle = 'rgba(148, 163, 184, 0.8)';
+    chartCtx.font = `${11 * dpr}px 'Space Grotesk', sans-serif`;
+
+    coords.forEach((pt) => {
+      // Beacon Dot
+      chartCtx.beginPath();
+      chartCtx.arc(pt.x, pt.y, 4 * dpr, 0, Math.PI * 2);
+      chartCtx.fillStyle = '#ffffff';
+      chartCtx.fill();
+      chartCtx.strokeStyle = activeChartModel === 'sovereign' ? '#d4af37' : '#10b981';
+      chartCtx.lineWidth = 2 * dpr;
+      chartCtx.stroke();
+
+      // X-Axis Date
+      chartCtx.fillStyle = 'rgba(148, 163, 184, 0.7)';
+      chartCtx.fillText(pt.date, pt.x, ch - paddingBottom + (12 * dpr));
+    });
+
+    // Handle Interactive Mouse Crosshair
+    if (mouseChartX !== null) {
+      const clampedX = Math.max(paddingLeft, Math.min(cw - paddingRight, mouseChartX * dpr));
+      const pct = (clampedX - paddingLeft) / plotW;
+      const exactIdx = Math.max(0, Math.min(coords.length - 1, Math.round(pct * (coords.length - 1))));
+      const currentPt = coords[exactIdx];
+
+      // Draw Vertical Crosshair Line
+      chartCtx.beginPath();
+      chartCtx.setLineDash([4 * dpr, 4 * dpr]);
+      chartCtx.moveTo(currentPt.x, paddingTop);
+      chartCtx.lineTo(currentPt.x, ch - paddingBottom);
+      chartCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      chartCtx.lineWidth = 1 * dpr;
+      chartCtx.stroke();
+      chartCtx.setLineDash([]);
+
+      // Draw Pulsing Focus Circle
+      chartCtx.beginPath();
+      chartCtx.arc(currentPt.x, currentPt.y, 8 * dpr, 0, Math.PI * 2);
+      chartCtx.fillStyle = activeChartModel === 'sovereign' ? 'rgba(212, 175, 55, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+      chartCtx.fill();
+      chartCtx.strokeStyle = '#ffffff';
+      chartCtx.lineWidth = 2 * dpr;
+      chartCtx.stroke();
+
+      // Update Tooltip HUD
+      if (chartTooltip && tooltipDate && tooltipVal && tooltipDelta) {
+        chartTooltip.style.opacity = '1';
+        tooltipDate.textContent = currentPt.date;
+        tooltipVal.textContent = `$${currentPt.price.toLocaleString()} USD`;
+        const startP = coords[0].price;
+        const gain = (((currentPt.price - startP) / startP) * 100).toFixed(1);
+        tooltipDelta.textContent = `${gain >= 0 ? '+' : ''}${gain}% relative to start`;
+      }
+    }
+  }
+
+  // --- Chart Mouse Interactions ---
+  if (priceGraphCanvas) {
+    priceGraphCanvas.addEventListener('mousemove', (e) => {
+      const rect = priceGraphCanvas.getBoundingClientRect();
+      mouseChartX = e.clientX - rect.left;
+      drawPriceChart();
+    });
+
+    priceGraphCanvas.addEventListener('mouseleave', () => {
+      mouseChartX = null;
+      if (chartTooltip) chartTooltip.style.opacity = '0';
+      drawPriceChart();
+    });
+  }
+
+  // --- Chart Model & Timeframe Buttons ---
+  function updateChartMetrics() {
+    const data = chartDataSets[activeChartModel];
+    if (chartModelTitle) chartModelTitle.textContent = data.title;
+    if (chartLivePriceDisplay) chartLivePriceDisplay.textContent = data.currentPrice;
+    if (chartRoiBadge) chartRoiBadge.textContent = data.roi;
+    if (kpiMSRP) kpiMSRP.textContent = data.msrp;
+    if (kpiATH) kpiATH.textContent = data.ath;
+    if (kpiLiquidity) kpiLiquidity.textContent = data.liquidity;
+    if (kpiForecast) kpiForecast.textContent = data.forecast;
+  }
+
+  if (chartSovereignBtn && chartChronoBtn) {
+    chartSovereignBtn.addEventListener('click', () => {
+      chartSovereignBtn.classList.add('active');
+      chartChronoBtn.classList.remove('active');
+      activeChartModel = 'sovereign';
+      updateChartMetrics();
+      drawPriceChart();
+    });
+
+    chartChronoBtn.addEventListener('click', () => {
+      chartChronoBtn.classList.add('active');
+      chartSovereignBtn.classList.remove('active');
+      activeChartModel = 'chrono';
+      updateChartMetrics();
+      drawPriceChart();
+    });
+  }
+
+  timeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      timeButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTimeframe = btn.getAttribute('data-timeframe');
+      drawPriceChart();
+    });
+  });
+
+  // --- Concierge Query Buttons ---
+  queryChipBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      queryChipBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const queryKey = btn.getAttribute('data-query');
+      if (conciergeResponseText && conciergeResponses[queryKey]) {
+        conciergeResponseText.style.opacity = '0';
+        setTimeout(() => {
+          conciergeResponseText.textContent = conciergeResponses[queryKey];
+          conciergeResponseText.style.opacity = '1';
+        }, 150);
       }
     });
-
-    chronoTiltCard.addEventListener('mouseleave', () => {
-      chronoTiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      if (chronoGlare) {
-        chronoGlare.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%)';
-      }
-    });
-  }
-
-  // --- Interactive Chrono Stopwatch Simulator ---
-  function formatTime(ms) {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = Math.floor((ms % 60000) / 1000);
-    const hundredths = Math.floor((ms % 1000) / 10);
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(hundredths).padStart(2, '0')}`;
-  }
-
-  if (chronoStartBtn) {
-    chronoStartBtn.addEventListener('click', () => {
-      initAudio();
-      if (!swRunning) {
-        swRunning = true;
-        swStartTime = Date.now() - swElapsed;
-        chronoStartBtn.textContent = 'Pause Chrono';
-        chronoStartBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)';
-        if (stopwatchStatus) stopwatchStatus.textContent = '⏱️ Running';
-
-        swInterval = setInterval(() => {
-          swElapsed = Date.now() - swStartTime;
-          if (stopwatchTime) stopwatchTime.textContent = formatTime(swElapsed);
-        }, 30);
-      } else {
-        swRunning = false;
-        clearInterval(swInterval);
-        chronoStartBtn.textContent = 'Resume Chrono';
-        chronoStartBtn.style.background = 'var(--emerald-gradient)';
-        if (stopwatchStatus) stopwatchStatus.textContent = '⏸️ Paused';
-      }
-    });
-  }
-
-  if (chronoLapBtn) {
-    chronoLapBtn.addEventListener('click', () => {
-      if (swRunning && stopwatchStatus) {
-        stopwatchStatus.textContent = `📍 Lap Recorded: ${formatTime(swElapsed)}`;
-        if (audioEnabled) playChimeSound();
-      }
-    });
-  }
-
-  if (chronoResetBtn) {
-    chronoResetBtn.addEventListener('click', () => {
-      swRunning = false;
-      clearInterval(swInterval);
-      swElapsed = 0;
-      if (stopwatchTime) stopwatchTime.textContent = '00:00.00';
-      if (stopwatchStatus) stopwatchStatus.textContent = 'Ready';
-      if (chronoStartBtn) {
-        chronoStartBtn.textContent = 'Start Chrono';
-        chronoStartBtn.style.background = 'var(--emerald-gradient)';
-      }
-    });
-  }
-
-  if (reserveChronoBtn) {
-    reserveChronoBtn.addEventListener('click', () => {
-      const modalSubtitle = document.getElementById('modalReserveSubtitle');
-      if (modalSubtitle) modalSubtitle.textContent = 'Secure your allocation for the Titan Stellar Emerald Chronograph ($1,290).';
-      openModal();
-    });
-  }
+  });
 
   // --- Web Audio Synthesizer ---
   function initAudio() {
