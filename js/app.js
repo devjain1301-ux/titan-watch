@@ -1,6 +1,6 @@
 /**
- * TITAN HOROLOGY - Interactive Scrollytelling, Valuation Graph & Cloud Intelligence Engine
- * High-performance HTML5 Canvas Sequence Renderer with Web Audio synthesis & Financial Charting
+ * TITAN HOROLOGY - Masterpiece Portfolio, Valuation Graph & Cloud Intelligence Engine
+ * High-performance HTML5 Canvas Sequence Renderer with Web Audio synthesis & 6-Model Analytics
  */
 
 (function () {
@@ -11,6 +11,128 @@
   const FRAME_BASE_PATH = 'frames/ezgif-frame-';
   const FRAME_EXT = '.jpg';
   
+  // --- Masterpiece Watch Models Database ---
+  const WATCH_MODELS = {
+    sovereign: {
+      name: 'Titan Sovereign 18K Gold',
+      price: 24500,
+      image: 'frames/ezgif-frame-210.jpg',
+      maxHeight: '85%',
+      roi: '+27.6% (1Y)',
+      msrp: '$19,200',
+      ath: '$25,800',
+      liquidity: '98.4 / 100',
+      forecast: '$31,200',
+      timeframes: {
+        '1M': [{ date: 'Jul 12', price: 23900 }, { date: 'Jul 19', price: 24100 }, { date: 'Jul 26', price: 24050 }, { date: 'Aug 02', price: 24350 }, { date: 'Aug 09', price: 24500 }],
+        '6M': [{ date: 'Feb 2026', price: 21800 }, { date: 'Mar 2026', price: 22400 }, { date: 'Apr 2026', price: 22900 }, { date: 'May 2026', price: 23500 }, { date: 'Jun 2026', price: 23800 }, { date: 'Jul 2026', price: 24200 }, { date: 'Aug 2026', price: 24500 }],
+        '1Y': [{ date: 'Aug 2025', price: 19200 }, { date: 'Oct 2025', price: 20100 }, { date: 'Dec 2025', price: 21200 }, { date: 'Feb 2026', price: 21900 }, { date: 'Apr 2026', price: 23100 }, { date: 'Jun 2026', price: 23950 }, { date: 'Aug 2026', price: 24500 }],
+        '3Y': [{ date: '2023 Q3', price: 16500 }, { date: '2024 Q1', price: 17400 }, { date: '2024 Q3', price: 18300 }, { date: '2025 Q1', price: 18900 }, { date: '2025 Q3', price: 20200 }, { date: '2026 Q1', price: 22500 }, { date: '2026 Q3', price: 24500 }],
+        'ALL': [{ date: 'Genesis 2022', price: 14800 }, { date: '2023', price: 16800 }, { date: '2024', price: 18500 }, { date: '2025', price: 20400 }, { date: '2026 Present', price: 24500 }]
+      }
+    },
+    chrono: {
+      name: 'Titan Stellar Emerald Chrono',
+      price: 1290,
+      image: 'assets/titan-emerald-chronograph.jpg',
+      maxHeight: '92%',
+      roi: '+22.8% (1Y)',
+      msrp: '$1,050',
+      ath: '$1,350',
+      liquidity: '96.2 / 100',
+      forecast: '$1,750',
+      timeframes: {
+        '1M': [{ date: 'Jul 12', price: 1240 }, { date: 'Jul 19', price: 1255 }, { date: 'Jul 26', price: 1260 }, { date: 'Aug 02', price: 1280 }, { date: 'Aug 09', price: 1290 }],
+        '6M': [{ date: 'Feb 2026', price: 1120 }, { date: 'Mar 2026', price: 1150 }, { date: 'Apr 2026', price: 1190 }, { date: 'May 2026', price: 1220 }, { date: 'Jun 2026', price: 1250 }, { date: 'Jul 2026', price: 1275 }, { date: 'Aug 2026', price: 1290 }],
+        '1Y': [{ date: 'Aug 2025', price: 1050 }, { date: 'Oct 2025', price: 1090 }, { date: 'Dec 2025', price: 1140 }, { date: 'Feb 2026', price: 1180 }, { date: 'Apr 2026', price: 1220 }, { date: 'Jun 2026', price: 1260 }, { date: 'Aug 2026', price: 1290 }],
+        '3Y': [{ date: '2023 Q3', price: 890 }, { date: '2024 Q1', price: 930 }, { date: '2024 Q3', price: 980 }, { date: '2025 Q1', price: 1020 }, { date: '2025 Q3', price: 1090 }, { date: '2026 Q1', price: 1190 }, { date: '2026 Q3', price: 1290 }],
+        'ALL': [{ date: 'Release 2023', price: 850 }, { date: '2024', price: 960 }, { date: '2025', price: 1080 }, { date: '2026 Present', price: 1290 }]
+      }
+    },
+    diver: {
+      name: 'Titan Maritime 300M Diver',
+      price: 1450,
+      image: 'assets/titan-maritime-diver.png',
+      maxHeight: '90%',
+      roi: '+18.5% (1Y)',
+      msrp: '$1,220',
+      ath: '$1,520',
+      liquidity: '95.0 / 100',
+      forecast: '$1,920',
+      timeframes: {
+        '1M': [{ date: 'Jul 12', price: 1410 }, { date: 'Jul 19', price: 1425 }, { date: 'Jul 26', price: 1430 }, { date: 'Aug 02', price: 1440 }, { date: 'Aug 09', price: 1450 }],
+        '6M': [{ date: 'Feb 2026', price: 1280 }, { date: 'Mar 2026', price: 1310 }, { date: 'Apr 2026', price: 1350 }, { date: 'May 2026', price: 1380 }, { date: 'Jun 2026', price: 1410 }, { date: 'Jul 2026', price: 1435 }, { date: 'Aug 2026', price: 1450 }],
+        '1Y': [{ date: 'Aug 2025', price: 1220 }, { date: 'Oct 2025', price: 1260 }, { date: 'Dec 2025', price: 1300 }, { date: 'Feb 2026', price: 1340 }, { date: 'Apr 2026', price: 1390 }, { date: 'Jun 2026', price: 1420 }, { date: 'Aug 2026', price: 1450 }],
+        '3Y': [{ date: '2023 Q3', price: 1050 }, { date: '2024 Q1', price: 1100 }, { date: '2024 Q3', price: 1150 }, { date: '2025 Q1', price: 1200 }, { date: '2025 Q3', price: 1280 }, { date: '2026 Q1', price: 1380 }, { date: '2026 Q3', price: 1450 }],
+        'ALL': [{ date: 'Debut 2023', price: 990 }, { date: '2024', price: 1120 }, { date: '2025', price: 1240 }, { date: '2026 Present', price: 1450 }]
+      }
+    },
+    moonphase: {
+      name: 'Titan Celestial Moonphase',
+      price: 1680,
+      image: 'assets/titan-moonphase.png',
+      maxHeight: '90%',
+      roi: '+25.2% (1Y)',
+      msrp: '$1,340',
+      ath: '$1,750',
+      liquidity: '97.1 / 100',
+      forecast: '$2,250',
+      timeframes: {
+        '1M': [{ date: 'Jul 12', price: 1620 }, { date: 'Jul 19', price: 1640 }, { date: 'Jul 26', price: 1655 }, { date: 'Aug 02', price: 1670 }, { date: 'Aug 09', price: 1680 }],
+        '6M': [{ date: 'Feb 2026', price: 1450 }, { date: 'Mar 2026', price: 1490 }, { date: 'Apr 2026', price: 1530 }, { date: 'May 2026', price: 1580 }, { date: 'Jun 2026', price: 1620 }, { date: 'Jul 2026', price: 1655 }, { date: 'Aug 2026', price: 1680 }],
+        '1Y': [{ date: 'Aug 2025', price: 1340 }, { date: 'Oct 2025', price: 1390 }, { date: 'Dec 2025', price: 1450 }, { date: 'Feb 2026', price: 1510 }, { date: 'Apr 2026', price: 1570 }, { date: 'Jun 2026', price: 1630 }, { date: 'Aug 2026', price: 1680 }],
+        '3Y': [{ date: '2023 Q3', price: 1100 }, { date: '2024 Q1', price: 1160 }, { date: '2024 Q3', price: 1220 }, { date: '2025 Q1', price: 1290 }, { date: '2025 Q3', price: 1410 }, { date: '2026 Q1', price: 1550 }, { date: '2026 Q3', price: 1680 }],
+        'ALL': [{ date: 'Debut 2023', price: 1050 }, { date: '2024', price: 1200 }, { date: '2025', price: 1380 }, { date: '2026 Present', price: 1680 }]
+      }
+    },
+    retrograde: {
+      name: 'Titan Retrograde Wandering Hour',
+      price: 1890,
+      image: 'assets/titan-retrograde.png',
+      maxHeight: '90%',
+      roi: '+31.4% (1Y)',
+      msrp: '$1,440',
+      ath: '$1,950',
+      liquidity: '98.8 / 100',
+      forecast: '$2,600',
+      timeframes: {
+        '1M': [{ date: 'Jul 12', price: 1820 }, { date: 'Jul 19', price: 1845 }, { date: 'Jul 26', price: 1860 }, { date: 'Aug 02', price: 1875 }, { date: 'Aug 09', price: 1890 }],
+        '6M': [{ date: 'Feb 2026', price: 1590 }, { date: 'Mar 2026', price: 1640 }, { date: 'Apr 2026', price: 1710 }, { date: 'May 2026', price: 1760 }, { date: 'Jun 2026', price: 1810 }, { date: 'Jul 2026', price: 1860 }, { date: 'Aug 2026', price: 1890 }],
+        '1Y': [{ date: 'Aug 2025', price: 1440 }, { date: 'Oct 2025', price: 1510 }, { date: 'Dec 2025', price: 1590 }, { date: 'Feb 2026', price: 1680 }, { date: 'Apr 2026', price: 1750 }, { date: 'Jun 2026', price: 1830 }, { date: 'Aug 2026', price: 1890 }],
+        '3Y': [{ date: '2023 Q3', price: 1180 }, { date: '2024 Q1', price: 1250 }, { date: '2024 Q3', price: 1330 }, { date: '2025 Q1', price: 1420 }, { date: '2025 Q3', price: 1560 }, { date: '2026 Q1', price: 1740 }, { date: '2026 Q3', price: 1890 }],
+        'ALL': [{ date: 'Debut 2023', price: 1120 }, { date: '2024', price: 1300 }, { date: '2025', price: 1480 }, { date: '2026 Present', price: 1890 }]
+      }
+    },
+    edge: {
+      name: 'Titan Edge Ceramic Ultra-Slim',
+      price: 1150,
+      image: 'assets/titan-edge-slim.png',
+      maxHeight: '92%',
+      roi: '+19.8% (1Y)',
+      msrp: '$960',
+      ath: '$1,200',
+      liquidity: '95.6 / 100',
+      forecast: '$1,550',
+      timeframes: {
+        '1M': [{ date: 'Jul 12', price: 1110 }, { date: 'Jul 19', price: 1125 }, { date: 'Jul 26', price: 1135 }, { date: 'Aug 02', price: 1140 }, { date: 'Aug 09', price: 1150 }],
+        '6M': [{ date: 'Feb 2026', price: 1020 }, { date: 'Mar 2026', price: 1050 }, { date: 'Apr 2026', price: 1080 }, { date: 'May 2026', price: 1100 }, { date: 'Jun 2026', price: 1120 }, { date: 'Jul 2026', price: 1135 }, { date: 'Aug 2026', price: 1150 }],
+        '1Y': [{ date: 'Aug 2025', price: 960 }, { date: 'Oct 2025', price: 990 }, { date: 'Dec 2025', price: 1030 }, { date: 'Feb 2026', price: 1060 }, { date: 'Apr 2026', price: 1090 }, { date: 'Jun 2026', price: 1125 }, { date: 'Aug 2026', price: 1150 }],
+        '3Y': [{ date: '2023 Q3', price: 820 }, { date: '2024 Q1', price: 860 }, { date: '2024 Q3', price: 900 }, { date: '2025 Q1', price: 940 }, { date: '2025 Q3', price: 1010 }, { date: '2026 Q1', price: 1080 }, { date: '2026 Q3', price: 1150 }],
+        'ALL': [{ date: 'Heritage 2022', price: 780 }, { date: '2023', price: 850 }, { date: '2024', price: 920 }, { date: '2025', price: 1040 }, { date: '2026 Present', price: 1150 }]
+      }
+    }
+  };
+
+  // Concierge Dialogue Database
+  const conciergeResponses = {
+    resale: '"The Titan Sovereign Everose has maintained an average secondary market premium of +27.6% across international horology auctions. With strict allocation caps of 500 numbered pieces, collectors benefit from sustained capital appreciation."',
+    diver: '"The Maritime 300M Diver is engineered for the abyss with double O-ring screw-down crown gaskets, unidirectional ceramic elapsed-time bezel, and high-contrast Super-LumiNova markers readable in zero-light undersea conditions."',
+    moonphase: '"The Celestial Moonphase tracks the continuous 29.5-day synodic lunar cycle through a precision aperture at 6 o\'clock, synchronizing diurnal day and numeric date subdials with celestial orbit."',
+    retrograde: '"The Metropolitan Jumping Hour replaces traditional analog hands with a high-torque mechanical disc at 12 o\'clock that instantly jumps at the 60th minute while the retrograde arc sweeps smoothly across seconds."',
+    edge: '"At an astonishing 3.6mm total case thickness and a 1.15mm quartz movement, the Titan Edge stands among the slimmest mechanical watches in world horology, requiring sapphire wafer machining."',
+    delivery: '"Every allocated timepiece is transported in an armored diplomatic vault case with biometric seal, accompanied by an encrypted NFC physical certificate of authenticity and 5-year global concierge warranty."'
+  };
+
   // --- DOM Elements ---
   const preloader = document.getElementById('preloader');
   const preloadBar = document.getElementById('preloadBar');
@@ -38,6 +160,12 @@
     document.getElementById('storyPhase4'),
   ];
 
+  // Collection Filters & Cards
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const collectionCards = document.querySelectorAll('.collection-card');
+  const inspectButtons = document.querySelectorAll('[data-select-model]');
+  const cardReserveButtons = document.querySelectorAll('[data-reserve-model]');
+
   // Price Graph Elements
   const priceGraphCanvas = document.getElementById('priceGraphCanvas');
   const chartCtx = priceGraphCanvas ? priceGraphCanvas.getContext('2d') : null;
@@ -48,8 +176,7 @@
   const chartModelTitle = document.getElementById('chartModelTitle');
   const chartLivePriceDisplay = document.getElementById('chartLivePriceDisplay');
   const chartRoiBadge = document.getElementById('chartRoiBadge');
-  const chartSovereignBtn = document.getElementById('chartSovereignBtn');
-  const chartChronoBtn = document.getElementById('chartChronoBtn');
+  const chartModelButtons = document.querySelectorAll('[data-chart-target]');
   const timeButtons = document.querySelectorAll('.time-btn');
   const kpiMSRP = document.getElementById('kpiMSRP');
   const kpiATH = document.getElementById('kpiATH');
@@ -68,8 +195,7 @@
   const configPrice = document.getElementById('configPrice');
   const selectedModelName = document.getElementById('selectedModelName');
   const selectedStrapName = document.getElementById('selectedStrapName');
-  const modelSovereignBtn = document.getElementById('modelSovereignBtn');
-  const modelChronoBtn = document.getElementById('modelChronoBtn');
+  const bespokeModelBtns = document.querySelectorAll('[data-model-id]');
   const lumeDayBtn = document.getElementById('lumeDayBtn');
   const lumeNightBtn = document.getElementById('lumeNightBtn');
   const strapButtons = document.querySelectorAll('[data-strap]');
@@ -99,7 +225,7 @@
   let audioCtx = null;
   
   // Bespoke State
-  let currentModel = 'sovereign';
+  let currentModelKey = 'sovereign';
   let basePrice = 24500;
   let strapAddon = 0;
 
@@ -107,120 +233,6 @@
   let activeChartModel = 'sovereign';
   let activeTimeframe = '1Y';
   let mouseChartX = null;
-
-  const chartDataSets = {
-    sovereign: {
-      title: 'Titan Sovereign Everose (41mm)',
-      currentPrice: '$24,500',
-      roi: '+27.6% (1Y)',
-      msrp: '$19,200',
-      ath: '$25,800',
-      liquidity: '98.4 / 100',
-      forecast: '$31,200',
-      timeframes: {
-        '1M': [
-          { date: 'Jul 12', price: 23900 },
-          { date: 'Jul 19', price: 24100 },
-          { date: 'Jul 26', price: 24050 },
-          { date: 'Aug 02', price: 24350 },
-          { date: 'Aug 09', price: 24500 },
-        ],
-        '6M': [
-          { date: 'Feb 2026', price: 21800 },
-          { date: 'Mar 2026', price: 22400 },
-          { date: 'Apr 2026', price: 22900 },
-          { date: 'May 2026', price: 23500 },
-          { date: 'Jun 2026', price: 23800 },
-          { date: 'Jul 2026', price: 24200 },
-          { date: 'Aug 2026', price: 24500 },
-        ],
-        '1Y': [
-          { date: 'Aug 2025', price: 19200 },
-          { date: 'Oct 2025', price: 20100 },
-          { date: 'Dec 2025', price: 21200 },
-          { date: 'Feb 2026', price: 21900 },
-          { date: 'Apr 2026', price: 23100 },
-          { date: 'Jun 2026', price: 23950 },
-          { date: 'Aug 2026', price: 24500 },
-        ],
-        '3Y': [
-          { date: '2023 Q3', price: 16500 },
-          { date: '2024 Q1', price: 17400 },
-          { date: '2024 Q3', price: 18300 },
-          { date: '2025 Q1', price: 18900 },
-          { date: '2025 Q3', price: 20200 },
-          { date: '2026 Q1', price: 22500 },
-          { date: '2026 Q3', price: 24500 },
-        ],
-        'ALL': [
-          { date: 'Genesis 2022', price: 14800 },
-          { date: '2023', price: 16800 },
-          { date: '2024', price: 18500 },
-          { date: '2025', price: 20400 },
-          { date: '2026 Present', price: 24500 },
-        ]
-      }
-    },
-    chrono: {
-      title: 'Titan Stellar Emerald Chronograph (43mm)',
-      currentPrice: '$1,290',
-      roi: '+22.8% (1Y)',
-      msrp: '$1,050',
-      ath: '$1,350',
-      liquidity: '96.2 / 100',
-      forecast: '$1,750',
-      timeframes: {
-        '1M': [
-          { date: 'Jul 12', price: 1240 },
-          { date: 'Jul 19', price: 1255 },
-          { date: 'Jul 26', price: 1260 },
-          { date: 'Aug 02', price: 1280 },
-          { date: 'Aug 09', price: 1290 },
-        ],
-        '6M': [
-          { date: 'Feb 2026', price: 1120 },
-          { date: 'Mar 2026', price: 1150 },
-          { date: 'Apr 2026', price: 1190 },
-          { date: 'May 2026', price: 1220 },
-          { date: 'Jun 2026', price: 1250 },
-          { date: 'Jul 2026', price: 1275 },
-          { date: 'Aug 2026', price: 1290 },
-        ],
-        '1Y': [
-          { date: 'Aug 2025', price: 1050 },
-          { date: 'Oct 2025', price: 1090 },
-          { date: 'Dec 2025', price: 1140 },
-          { date: 'Feb 2026', price: 1180 },
-          { date: 'Apr 2026', price: 1220 },
-          { date: 'Jun 2026', price: 1260 },
-          { date: 'Aug 2026', price: 1290 },
-        ],
-        '3Y': [
-          { date: '2023 Q3', price: 890 },
-          { date: '2024 Q1', price: 930 },
-          { date: '2024 Q3', price: 980 },
-          { date: '2025 Q1', price: 1020 },
-          { date: '2025 Q3', price: 1090 },
-          { date: '2026 Q1', price: 1190 },
-          { date: '2026 Q3', price: 1290 },
-        ],
-        'ALL': [
-          { date: 'Release 2023', price: 850 },
-          { date: '2024', price: 960 },
-          { date: '2025', price: 1080 },
-          { date: '2026 Present', price: 1290 },
-        ]
-      }
-    }
-  };
-
-  // Concierge Dialogue Database
-  const conciergeResponses = {
-    resale: '"The Titan Sovereign Everose has maintained an average secondary market premium of +27.6% across international horology auctions. With strict allocation caps of 500 numbered pieces, collectors benefit from sustained capital appreciation."',
-    movement: '"The Calibre 8800 Manufacture Movement boasts a 72-hour power reserve, Co-Axial Swiss escapement, and an anti-magnetic silicon hairspring tested to resist 15,000 Gauss. Each movement is individually COSC certified."',
-    chrono: '"The Stellar Emerald Chronograph features a triple-eye complication measuring 1/10th second intervals, 24-hour diurnal military time, and small seconds sweep housed in a PVD brushed titanium-steel case."',
-    delivery: '"Every allocated timepiece is transported in an armored diplomatic vault case with biometric seal, accompanied by an encrypted NFC physical certificate of authenticity and 5-year global concierge warranty."'
-  };
 
   // --- Preload All 210 Frames ---
   function getFramePath(idx) {
@@ -480,6 +492,48 @@
     });
   }
 
+  // --- COLLECTION FILTER TABS ---
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter');
+
+      collectionCards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'flex';
+          setTimeout(() => card.style.opacity = '1', 50);
+        } else {
+          card.style.opacity = '0';
+          setTimeout(() => card.style.display = 'none', 300);
+        }
+      });
+    });
+  });
+
+  // --- INSPECT IN BESPOKE ATELIER BUTTONS ---
+  inspectButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modelId = btn.getAttribute('data-select-model');
+      selectBespokeModel(modelId);
+      const bespokeEl = document.getElementById('bespoke');
+      if (bespokeEl) bespokeEl.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  cardReserveButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modelId = btn.getAttribute('data-reserve-model');
+      const modelObj = WATCH_MODELS[modelId];
+      if (modelObj) {
+        const modalSubtitle = document.getElementById('modalReserveSubtitle');
+        if (modalSubtitle) modalSubtitle.textContent = `Secure your allocation for the ${modelObj.name} ($${modelObj.price.toLocaleString()}).`;
+      }
+      openModal();
+    });
+  });
+
   // --- REALISTIC PRICE HISTORY CANVAS GRAPH ENGINE ---
   function setupPriceChart() {
     if (!priceGraphCanvas || !chartCtx) return;
@@ -500,8 +554,8 @@
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const cw = priceGraphCanvas.width;
     const ch = priceGraphCanvas.height;
-    const dataObj = chartDataSets[activeChartModel];
-    const points = dataObj.timeframes[activeTimeframe];
+    const dataObj = WATCH_MODELS[activeChartModel] || WATCH_MODELS.sovereign;
+    const points = dataObj.timeframes[activeTimeframe] || dataObj.timeframes['1Y'];
 
     chartCtx.clearRect(0, 0, cw, ch);
 
@@ -565,9 +619,15 @@
     if (activeChartModel === 'sovereign') {
       fillGradient.addColorStop(0, 'rgba(212, 175, 55, 0.28)');
       fillGradient.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
-    } else {
+    } else if (activeChartModel === 'chrono') {
       fillGradient.addColorStop(0, 'rgba(16, 185, 129, 0.32)');
       fillGradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+    } else if (activeChartModel === 'diver' || activeChartModel === 'moonphase') {
+      fillGradient.addColorStop(0, 'rgba(59, 130, 246, 0.32)');
+      fillGradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+    } else {
+      fillGradient.addColorStop(0, 'rgba(217, 119, 6, 0.32)');
+      fillGradient.addColorStop(1, 'rgba(217, 119, 6, 0.0)');
     }
 
     chartCtx.lineTo(coords[coords.length - 1].x, ch - paddingBottom);
@@ -586,9 +646,21 @@
       chartCtx.bezierCurveTo(midX, p0.y, midX, p1.y, p1.x, p1.y);
     }
 
-    chartCtx.strokeStyle = activeChartModel === 'sovereign' ? '#e7c365' : '#34d399';
+    if (activeChartModel === 'sovereign') {
+      chartCtx.strokeStyle = '#e7c365';
+      chartCtx.shadowColor = 'rgba(212, 175, 55, 0.6)';
+    } else if (activeChartModel === 'chrono') {
+      chartCtx.strokeStyle = '#34d399';
+      chartCtx.shadowColor = 'rgba(16, 185, 129, 0.7)';
+    } else if (activeChartModel === 'diver' || activeChartModel === 'moonphase') {
+      chartCtx.strokeStyle = '#60a5fa';
+      chartCtx.shadowColor = 'rgba(59, 130, 246, 0.7)';
+    } else {
+      chartCtx.strokeStyle = '#f59e0b';
+      chartCtx.shadowColor = 'rgba(217, 119, 6, 0.7)';
+    }
+
     chartCtx.lineWidth = 3 * dpr;
-    chartCtx.shadowColor = activeChartModel === 'sovereign' ? 'rgba(212, 175, 55, 0.6)' : 'rgba(16, 185, 129, 0.7)';
     chartCtx.shadowBlur = 12 * dpr;
     chartCtx.stroke();
     chartCtx.shadowBlur = 0;
@@ -605,7 +677,7 @@
       chartCtx.arc(pt.x, pt.y, 4 * dpr, 0, Math.PI * 2);
       chartCtx.fillStyle = '#ffffff';
       chartCtx.fill();
-      chartCtx.strokeStyle = activeChartModel === 'sovereign' ? '#d4af37' : '#10b981';
+      chartCtx.strokeStyle = chartCtx.strokeStyle;
       chartCtx.lineWidth = 2 * dpr;
       chartCtx.stroke();
 
@@ -634,7 +706,7 @@
       // Draw Pulsing Focus Circle
       chartCtx.beginPath();
       chartCtx.arc(currentPt.x, currentPt.y, 8 * dpr, 0, Math.PI * 2);
-      chartCtx.fillStyle = activeChartModel === 'sovereign' ? 'rgba(212, 175, 55, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+      chartCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
       chartCtx.fill();
       chartCtx.strokeStyle = '#ffffff';
       chartCtx.lineWidth = 2 * dpr;
@@ -669,9 +741,9 @@
 
   // --- Chart Model & Timeframe Buttons ---
   function updateChartMetrics() {
-    const data = chartDataSets[activeChartModel];
-    if (chartModelTitle) chartModelTitle.textContent = data.title;
-    if (chartLivePriceDisplay) chartLivePriceDisplay.textContent = data.currentPrice;
+    const data = WATCH_MODELS[activeChartModel] || WATCH_MODELS.sovereign;
+    if (chartModelTitle) chartModelTitle.textContent = data.name;
+    if (chartLivePriceDisplay) chartLivePriceDisplay.textContent = `$${data.price.toLocaleString()}`;
     if (chartRoiBadge) chartRoiBadge.textContent = data.roi;
     if (kpiMSRP) kpiMSRP.textContent = data.msrp;
     if (kpiATH) kpiATH.textContent = data.ath;
@@ -679,23 +751,15 @@
     if (kpiForecast) kpiForecast.textContent = data.forecast;
   }
 
-  if (chartSovereignBtn && chartChronoBtn) {
-    chartSovereignBtn.addEventListener('click', () => {
-      chartSovereignBtn.classList.add('active');
-      chartChronoBtn.classList.remove('active');
-      activeChartModel = 'sovereign';
+  chartModelButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chartModelButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeChartModel = btn.getAttribute('data-chart-target');
       updateChartMetrics();
       drawPriceChart();
     });
-
-    chartChronoBtn.addEventListener('click', () => {
-      chartChronoBtn.classList.add('active');
-      chartSovereignBtn.classList.remove('active');
-      activeChartModel = 'chrono';
-      updateChartMetrics();
-      drawPriceChart();
-    });
-  }
+  });
 
   timeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -797,34 +861,37 @@
     });
   }
 
-  // --- Bespoke Studio & Model Switcher Logic ---
-  if (modelSovereignBtn && modelChronoBtn) {
-    modelSovereignBtn.addEventListener('click', () => {
-      modelSovereignBtn.classList.add('active');
-      modelChronoBtn.classList.remove('active');
-      currentModel = 'sovereign';
-      basePrice = 24500;
-      if (selectedModelName) selectedModelName.textContent = 'Sovereign 18K Gold';
-      if (studioWatchImg) {
-        studioWatchImg.src = 'frames/ezgif-frame-210.jpg';
-        studioWatchImg.style.maxHeight = '85%';
+  // --- Bespoke Studio 6-Model Switcher ---
+  function selectBespokeModel(modelKey) {
+    const model = WATCH_MODELS[modelKey];
+    if (!model) return;
+
+    currentModelKey = modelKey;
+    basePrice = model.price;
+
+    bespokeModelBtns.forEach(btn => {
+      if (btn.getAttribute('data-model-id') === modelKey) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
       }
-      updateTotalPrice();
     });
 
-    modelChronoBtn.addEventListener('click', () => {
-      modelChronoBtn.classList.add('active');
-      modelSovereignBtn.classList.remove('active');
-      currentModel = 'chrono';
-      basePrice = 1290;
-      if (selectedModelName) selectedModelName.textContent = 'Stellar Emerald Chrono';
-      if (studioWatchImg) {
-        studioWatchImg.src = 'assets/titan-emerald-chronograph.jpg';
-        studioWatchImg.style.maxHeight = '92%';
-      }
-      updateTotalPrice();
-    });
+    if (selectedModelName) selectedModelName.textContent = model.name;
+    if (studioWatchImg) {
+      studioWatchImg.src = model.image;
+      studioWatchImg.style.maxHeight = model.maxHeight || '88%';
+    }
+
+    updateTotalPrice();
   }
+
+  bespokeModelBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modelId = btn.getAttribute('data-model-id');
+      selectBespokeModel(modelId);
+    });
+  });
 
   strapButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -835,9 +902,9 @@
       strapAddon = parseInt(btn.getAttribute('data-price'), 10);
       
       if (selectedStrapName) {
-        if (type === 'gold') selectedStrapName.textContent = '18K Solid Rose Gold';
+        if (type === 'gold') selectedStrapName.textContent = 'Solid Link Bracelet';
         if (type === 'leather') selectedStrapName.textContent = 'Tuscan Cognac Alligator';
-        if (type === 'rubber') selectedStrapName.textContent = 'Deep Emerald Vulcanized Silicone';
+        if (type === 'rubber') selectedStrapName.textContent = 'Vulcanized Silicone Sport';
       }
 
       updateTotalPrice();
@@ -909,7 +976,7 @@
       const nameInput = document.getElementById('vipName');
       const name = nameInput ? nameInput.value : 'Collector';
       const randomCode = Math.floor(1000 + Math.random() * 9000);
-      const prefix = currentModel === 'chrono' ? 'TT-CHRONO' : 'TT-SOVEREIGN';
+      const prefix = `TT-${currentModelKey.toUpperCase()}`;
       
       if (certSerial) certSerial.textContent = `${prefix}-2026-${randomCode}`;
       if (certOwner) certOwner.textContent = `Provenance Issued to: ${name}`;
