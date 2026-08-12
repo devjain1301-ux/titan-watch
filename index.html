@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TITAN HOROLOGY | The Sovereign Emerald Masterpiece</title>
-  <meta name="description" content="Experience the materialization of the Titan Sovereign Emerald luxury timepiece. 18K Rose Gold, hand-crafted Swiss automatic movement, and starlight-grade horology.">
+  <title>TITAN HOROLOGY | The Sovereign & Stellar Emerald Masterpieces</title>
+  <meta name="description" content="Experience the Titan Sovereign Gold and Stellar Emerald Chronograph luxury timepieces. Precision Swiss mechanical engineering, 3D scrollytelling, and haute horlogerie.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱️</text></svg>">
 </head>
@@ -33,12 +33,13 @@
   <header class="navbar" id="navbar">
     <a href="#" class="brand-logo" id="navLogo">
       <div class="brand-emblem">T</div>
-      <span class="brand-name">Titan Sovereign</span>
+      <span class="brand-name">Titan Horology</span>
     </a>
 
     <nav>
       <ul class="nav-links">
         <li><a href="#genesis" class="nav-link active">Genesis</a></li>
+        <li><a href="#chronograph" class="nav-link">Stellar Chrono</a></li>
         <li><a href="#craftsmanship" class="nav-link">Craftsmanship</a></li>
         <li><a href="#bespoke" class="nav-link">Bespoke Studio</a></li>
         <li><a href="#specifications" class="nav-link">Specifications</a></li>
@@ -201,12 +202,161 @@
       </div>
     </section>
 
+    <!-- NEW: TITAN STELLAR EMERALD CHRONOGRAPH SHOWCASE SECTION -->
+    <section class="chronograph-spotlight-section" id="chronograph">
+      <div class="chrono-ambient-rays"></div>
+
+      <div class="chrono-container">
+        
+        <!-- Left: 3D Perspective Interactive Tilt Card -->
+        <div class="chrono-visual-wrapper">
+          <div class="chrono-3d-card" id="chronoTiltCard">
+            <div class="chrono-badge-pill">
+              <span class="hud-badge-dot"></span>
+              <span>Titan Official Flagship</span>
+            </div>
+
+            <!-- The Watch Image -->
+            <img src="assets/titan-emerald-chronograph.jpg" alt="Titan Stellar Emerald Chronograph Luxury Watch" class="chrono-watch-img" id="chronoWatchImg">
+            
+            <!-- Dynamic Glare Layer -->
+            <div class="chrono-glare-overlay" id="chronoGlare"></div>
+
+            <!-- Hotspot 1: 30-Minute Counter -->
+            <div class="chrono-hotspot-pin" style="top: 47%; left: 36%;">
+              <div class="chrono-hotspot-beacon">
+                <div class="chrono-hotspot-dot"></div>
+              </div>
+              <div class="chrono-hotspot-tooltip">
+                <div class="hotspot-tip-title">30-Minute Totalizer</div>
+                <div class="hotspot-tip-desc">Precision chronograph accumulator measuring elapsed sport intervals.</div>
+              </div>
+            </div>
+
+            <!-- Hotspot 2: 24-Hour Subdial -->
+            <div class="chrono-hotspot-pin" style="top: 46%; left: 56%;">
+              <div class="chrono-hotspot-beacon">
+                <div class="chrono-hotspot-dot"></div>
+              </div>
+              <div class="chrono-hotspot-tooltip">
+                <div class="hotspot-tip-title">24-Hour Military Dial</div>
+                <div class="hotspot-tip-desc">Dual-time diurnal tracker synchronized with world atomic time.</div>
+              </div>
+            </div>
+
+            <!-- Hotspot 3: 60-Second Sweep -->
+            <div class="chrono-hotspot-pin" style="top: 56%; left: 46%;">
+              <div class="chrono-hotspot-beacon">
+                <div class="chrono-hotspot-dot"></div>
+              </div>
+              <div class="chrono-hotspot-tooltip">
+                <div class="hotspot-tip-title">60-Second Small Seconds</div>
+                <div class="hotspot-tip-desc">Ultra-fluid sub-second sweep with concentric guilloché texture.</div>
+              </div>
+            </div>
+
+            <!-- Hotspot 4: Vulcanized Strap -->
+            <div class="chrono-hotspot-pin" style="top: 82%; left: 50%;">
+              <div class="chrono-hotspot-beacon">
+                <div class="chrono-hotspot-dot"></div>
+              </div>
+              <div class="chrono-hotspot-tooltip">
+                <div class="hotspot-tip-title">Fluoroelastomer Strap</div>
+                <div class="hotspot-tip-desc">Hydrophobic matte emerald green strap with titanium pin buckle.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: Chronograph Specifications & Interactive Stopwatch -->
+        <div class="chrono-info-panel">
+          <div>
+            <div class="chrono-tag">
+              <span>●</span>
+              <span>New Release // 2026 Collection</span>
+            </div>
+            <h2 class="chrono-title">Titan Stellar <span>Emerald Chronograph</span></h2>
+            <p class="chrono-desc">The pinnacle of avant-garde sports elegance. An intense forest-emerald sunburst dial housed inside a satin-brushed titanium-steel monobloc case with integrated triple-complication chronograph counters.</p>
+          </div>
+
+          <!-- Interactive Live Chrono Stopwatch Widget -->
+          <div class="chrono-stopwatch-widget">
+            <div class="stopwatch-header">
+              <span>⏱️ Multi-Eye Chronometer Test</span>
+              <span id="stopwatchStatus" style="color:var(--emerald-400);">Ready</span>
+            </div>
+            <div class="stopwatch-display" id="stopwatchTime">00:00.00</div>
+            <div class="stopwatch-actions">
+              <button class="btn-emerald" id="chronoStartBtn" style="padding: 9px 20px;">Start Chrono</button>
+              <button class="btn-outline-gold" id="chronoLapBtn" style="padding: 9px 18px; border-color: var(--border-emerald); color: var(--emerald-300);">Split / Lap</button>
+              <button class="btn-outline-gold" id="chronoResetBtn" style="padding: 9px 18px;">Reset</button>
+            </div>
+          </div>
+
+          <!-- Highlight Pillars -->
+          <div class="chrono-features-pills">
+            <div class="chrono-feat-item">
+              <div class="chrono-feat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div>
+                <div class="chrono-feat-title">Triple-Subdial Calibre</div>
+                <div class="chrono-feat-sub">1/10th second chronometric resolution</div>
+              </div>
+            </div>
+
+            <div class="chrono-feat-item">
+              <div class="chrono-feat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+              <div>
+                <div class="chrono-feat-title">Brushed Emerald Steel</div>
+                <div class="chrono-feat-sub">PVD ion-plated scratch-resistant bezel</div>
+              </div>
+            </div>
+
+            <div class="chrono-feat-item">
+              <div class="chrono-feat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+              </div>
+              <div>
+                <div class="chrono-feat-title">100m Water Sealed</div>
+                <div class="chrono-feat-sub">High-grade dual O-ring gaskets</div>
+              </div>
+            </div>
+
+            <div class="chrono-feat-item">
+              <div class="chrono-feat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </div>
+              <div>
+                <div class="chrono-feat-title">Titanium Pin Clasp</div>
+                <div class="chrono-feat-sub">Laser-engraved Titan hallmark</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price & Reserve CTA -->
+          <div class="chrono-price-cta-row">
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;">Edition Price</div>
+              <div class="chrono-price-tag">$1,290 USD</div>
+            </div>
+            <button class="btn-emerald" id="reserveChronoBtn">Reserve Stellar Chrono</button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
     <!-- Craftsmanship & Engineering Section -->
     <section class="section" id="craftsmanship">
       <div class="section-header">
         <span class="section-tag">Haute Horlogerie</span>
         <h2 class="section-title">Mastery in Every <span>Micron</span></h2>
-        <p class="section-subtitle">Crafted without compromise. Each Titan Sovereign requires over 180 hours of hand-finishing by master horologists.</p>
+        <p class="section-subtitle">Crafted without compromise. Each Titan timepiece requires over 180 hours of hand-finishing by master horologists.</p>
       </div>
 
       <div class="features-grid">
@@ -238,15 +388,15 @@
           <div class="feature-icon-box">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
           </div>
-          <h3 class="feature-title">18K Everose Gold</h3>
-          <p class="feature-desc">Proprietary gold alloy enriched with platinum for eternal luster that never fades, even when exposed to saltwater.</p>
+          <h3 class="feature-title">18K Everose & Emerald Ion</h3>
+          <p class="feature-desc">Proprietary gold alloy enriched with platinum and ion-coated titanium for eternal luster that never fades.</p>
           <div class="feature-stats">
             <div class="feature-stat-item">
               <span>750‰</span>
               <span>Gold Purity</span>
             </div>
             <div class="feature-stat-item">
-              <span>50m</span>
+              <span>100m</span>
               <span>Waterproof</span>
             </div>
             <div class="feature-stat-item">
@@ -286,7 +436,7 @@
       <div class="section-header">
         <span class="section-tag">Atelier Personalization</span>
         <h2 class="section-title">Bespoke <span>Studio</span></h2>
-        <p class="section-subtitle">Tailor your Sovereign timepiece with custom strap variations, night luminescence preview, and custom caseback monogram engraving.</p>
+        <p class="section-subtitle">Tailor your Titan timepiece with model selection, custom strap variations, night luminescence preview, and custom caseback monogram engraving.</p>
       </div>
 
       <div class="bespoke-container">
@@ -300,23 +450,41 @@
         <!-- Controls -->
         <div class="studio-config-panel">
           
+          <!-- Model Selection -->
+          <div class="config-group">
+            <div class="config-group-title">
+              <span>1. Choose Watch Edition</span>
+              <span style="font-size:0.8rem; color:var(--gold-400);" id="selectedModelName">Sovereign 18K Gold</span>
+            </div>
+            <div class="config-options-row">
+              <button class="option-btn active" id="modelSovereignBtn">
+                <span class="option-name">👑 Sovereign Gold</span>
+                <span class="option-sub">$24,500 (Automatic)</span>
+              </button>
+              <button class="option-btn" id="modelChronoBtn">
+                <span class="option-name">🟢 Stellar Chrono</span>
+                <span class="option-sub">$1,290 (Triple-Eye)</span>
+              </button>
+            </div>
+          </div>
+
           <!-- Strap Selection -->
           <div class="config-group">
             <div class="config-group-title">
-              <span>1. Select Bracelet Finish</span>
+              <span>2. Select Strap Finish</span>
               <span style="font-size:0.8rem; color:var(--gold-400);" id="selectedStrapName">18K Solid Rose Gold</span>
             </div>
             <div class="config-options-row">
               <button class="option-btn active" data-strap="gold" data-price="0">
                 <span class="option-name">Solid Gold Link</span>
-                <span class="option-sub">Included (18K)</span>
+                <span class="option-sub">Standard</span>
               </button>
               <button class="option-btn" data-strap="leather" data-price="850">
                 <span class="option-name">Cognac Alligator</span>
                 <span class="option-sub">+ $850 Bespoke</span>
               </button>
               <button class="option-btn" data-strap="rubber" data-price="450">
-                <span class="option-name">Emerald Rubber</span>
+                <span class="option-name">Emerald Silicone</span>
                 <span class="option-sub">+ $450 Sport</span>
               </button>
             </div>
@@ -325,7 +493,7 @@
           <!-- Lume View Toggle -->
           <div class="config-group">
             <div class="config-group-title">
-              <span>2. Dial Luminescence Mode</span>
+              <span>3. Dial Luminescence Mode</span>
             </div>
             <div class="config-options-row">
               <button class="option-btn active" id="lumeDayBtn">
@@ -334,7 +502,7 @@
               </button>
               <button class="option-btn" id="lumeNightBtn">
                 <span class="option-name">✨ Super-LumiNova</span>
-                <span class="option-sub">Emerald Dark Glow</span>
+                <span class="option-sub">Emerald Glow</span>
               </button>
             </div>
           </div>
@@ -342,7 +510,7 @@
           <!-- Custom Engraving Input -->
           <div class="config-group">
             <div class="config-group-title">
-              <span>3. Bespoke Caseback Engraving</span>
+              <span>4. Bespoke Caseback Engraving</span>
               <span style="font-size:0.8rem; color:var(--text-muted);">Max 18 Chars</span>
             </div>
             <div class="engraving-input-wrap">
@@ -381,19 +549,19 @@
           <div class="spec-details-list">
             <div>
               <div class="spec-detail-key">Diameter</div>
-              <div class="spec-detail-val">41.0 mm</div>
+              <div class="spec-detail-val">41.0 mm / 43.0 mm Chrono</div>
             </div>
             <div>
               <div class="spec-detail-key">Thickness</div>
-              <div class="spec-detail-val">11.8 mm</div>
+              <div class="spec-detail-val">11.8 mm Ultra-Slim</div>
             </div>
             <div>
               <div class="spec-detail-key">Material</div>
-              <div class="spec-detail-val">18K Everose Gold Monobloc</div>
+              <div class="spec-detail-val">18K Everose Gold / Emerald PVD Steel</div>
             </div>
             <div>
               <div class="spec-detail-key">Water Resistance</div>
-              <div class="spec-detail-val">50 Metres / 5 ATM</div>
+              <div class="spec-detail-val">50m - 100m Hydrostatic Sealed</div>
             </div>
           </div>
         </div>
@@ -407,11 +575,11 @@
           <div class="spec-details-list">
             <div>
               <div class="spec-detail-key">Calibre</div>
-              <div class="spec-detail-val">Titan Manufacture 8800</div>
+              <div class="spec-detail-val">Titan Manufacture 8800 & Chrono QX</div>
             </div>
             <div>
-              <div class="spec-detail-key">Winding</div>
-              <div class="spec-detail-val">Bidirectional Self-Winding</div>
+              <div class="spec-detail-key">Winding / Power</div>
+              <div class="spec-detail-val">Bidirectional Self-Winding / Quartz 3Y</div>
             </div>
             <div>
               <div class="spec-detail-key">Precision</div>
@@ -440,8 +608,8 @@
               <div class="spec-detail-val">Scratch-resistant Sapphire</div>
             </div>
             <div>
-              <div class="spec-detail-key">Magnifier</div>
-              <div class="spec-detail-val">Cyclops Lens over date (2.5x)</div>
+              <div class="spec-detail-key">Complications</div>
+              <div class="spec-detail-val">Date Cyclops / Triple Subdials</div>
             </div>
             <div>
               <div class="spec-detail-key">Luminescence</div>
@@ -462,7 +630,7 @@
       <div id="modalFormScreen">
         <div class="modal-header">
           <h3 class="modal-title">VIP Concierge Reservation</h3>
-          <p class="modal-subtitle">Secure your allocation for the Titan Sovereign Emerald Edition.</p>
+          <p class="modal-subtitle" id="modalReserveSubtitle">Secure your allocation for the Titan Sovereign & Stellar Collection.</p>
         </div>
 
         <form class="modal-form" id="reserveForm">
@@ -509,7 +677,7 @@
       <div>
         <a href="#" class="brand-logo">
           <div class="brand-emblem">T</div>
-          <span class="brand-name">Titan Sovereign</span>
+          <span class="brand-name">Titan Horology</span>
         </a>
         <p class="footer-brand-desc">Masterpieces of eternal precision and astronomical aesthetics. Hand-engineered for discerning collectors across the globe.</p>
       </div>
@@ -518,9 +686,9 @@
         <div class="footer-column-title">Manufacture</div>
         <ul class="footer-links-list">
           <li><a href="#genesis" class="footer-link">The Genesis Sequence</a></li>
+          <li><a href="#chronograph" class="footer-link">Stellar Chronograph</a></li>
           <li><a href="#craftsmanship" class="footer-link">Calibre 8800 Movement</a></li>
           <li><a href="#bespoke" class="footer-link">Atelier Customization</a></li>
-          <li><a href="#specifications" class="footer-link">Technical Ledger</a></li>
         </ul>
       </div>
 

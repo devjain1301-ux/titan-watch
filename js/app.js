@@ -1,5 +1,5 @@
 /**
- * TITAN HOROLOGY - Interactive Scrollytelling & Frame Player Engine
+ * TITAN HOROLOGY - Interactive Scrollytelling, Chronograph Showcase & Bespoke Studio Engine
  * High-performance HTML5 Canvas Sequence Renderer with Web Audio synthesis
  */
 
@@ -39,13 +39,26 @@
     document.getElementById('storyPhase4'),
   ];
 
+  // Chronograph Showcase Elements
+  const chronoTiltCard = document.getElementById('chronoTiltCard');
+  const chronoGlare = document.getElementById('chronoGlare');
+  const stopwatchTime = document.getElementById('stopwatchTime');
+  const stopwatchStatus = document.getElementById('stopwatchStatus');
+  const chronoStartBtn = document.getElementById('chronoStartBtn');
+  const chronoLapBtn = document.getElementById('chronoLapBtn');
+  const chronoResetBtn = document.getElementById('chronoResetBtn');
+  const reserveChronoBtn = document.getElementById('reserveChronoBtn');
+
   // Bespoke studio elements
   const studioWatchImg = document.getElementById('studioWatchImg');
   const studioModeBadge = document.getElementById('studioModeBadge');
   const engravingInput = document.getElementById('engravingInput');
   const engravingLiveBadge = document.getElementById('engravingLiveBadge');
   const configPrice = document.getElementById('configPrice');
+  const selectedModelName = document.getElementById('selectedModelName');
   const selectedStrapName = document.getElementById('selectedStrapName');
+  const modelSovereignBtn = document.getElementById('modelSovereignBtn');
+  const modelChronoBtn = document.getElementById('modelChronoBtn');
   const lumeDayBtn = document.getElementById('lumeDayBtn');
   const lumeNightBtn = document.getElementById('lumeNightBtn');
   const strapButtons = document.querySelectorAll('[data-strap]');
@@ -64,7 +77,6 @@
 
   // --- State Variables ---
   const images = new Array(TOTAL_FRAMES + 1);
-  let loadedCount = 0;
   let currentFrame = 1;
   let targetFrame = 1;
   let isPlaying = false;
@@ -74,8 +86,17 @@
   let startFrame = 1;
   let audioEnabled = false;
   let audioCtx = null;
+  
+  // Bespoke State
+  let currentModel = 'sovereign'; // 'sovereign' | 'chrono'
   let basePrice = 24500;
   let strapAddon = 0;
+
+  // Stopwatch State
+  let swRunning = false;
+  let swStartTime = 0;
+  let swElapsed = 0;
+  let swInterval = null;
 
   // --- Frame Path Helper ---
   function getFramePath(idx) {
@@ -136,14 +157,13 @@
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
-    // Aspect ratio "contain"
     const scale = Math.min(cw / iw, ch / ih);
     const nw = iw * scale;
     const nh = ih * scale;
     const nx = (cw - nw) / 2;
     const ny = (ch - nh) / 2;
 
-    ctx.fillStyle = '#07080b';
+    ctx.fillStyle = '#06070a';
     ctx.fillRect(0, 0, cw, ch);
     ctx.drawImage(img, nx, ny, nw, nh);
 
@@ -170,7 +190,7 @@
   }
 
   function updateStoryCards(frameIdx) {
-    storyCards.forEach((c, idx) => {
+    storyCards.forEach((c) => {
       if (!c) return;
       c.classList.remove('active');
     });
@@ -342,6 +362,99 @@
     });
   }
 
+  // --- 3D Interactive Perspective Tilt on Chronograph Card ---
+  if (chronoTiltCard) {
+    chronoTiltCard.addEventListener('mousemove', (e) => {
+      const rect = chronoTiltCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -12;
+      const rotateY = ((x - centerX) / centerX) * 12;
+
+      chronoTiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+      if (chronoGlare) {
+        const glareX = (x / rect.width) * 100;
+        const glareY = (y / rect.height) * 100;
+        chronoGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.22) 0%, transparent 60%)`;
+      }
+    });
+
+    chronoTiltCard.addEventListener('mouseleave', () => {
+      chronoTiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      if (chronoGlare) {
+        chronoGlare.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%)';
+      }
+    });
+  }
+
+  // --- Interactive Chrono Stopwatch Simulator ---
+  function formatTime(ms) {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const hundredths = Math.floor((ms % 1000) / 10);
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(hundredths).padStart(2, '0')}`;
+  }
+
+  if (chronoStartBtn) {
+    chronoStartBtn.addEventListener('click', () => {
+      initAudio();
+      if (!swRunning) {
+        swRunning = true;
+        swStartTime = Date.now() - swElapsed;
+        chronoStartBtn.textContent = 'Pause Chrono';
+        chronoStartBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)';
+        if (stopwatchStatus) stopwatchStatus.textContent = '⏱️ Running';
+
+        swInterval = setInterval(() => {
+          swElapsed = Date.now() - swStartTime;
+          if (stopwatchTime) stopwatchTime.textContent = formatTime(swElapsed);
+        }, 30);
+      } else {
+        swRunning = false;
+        clearInterval(swInterval);
+        chronoStartBtn.textContent = 'Resume Chrono';
+        chronoStartBtn.style.background = 'var(--emerald-gradient)';
+        if (stopwatchStatus) stopwatchStatus.textContent = '⏸️ Paused';
+      }
+    });
+  }
+
+  if (chronoLapBtn) {
+    chronoLapBtn.addEventListener('click', () => {
+      if (swRunning && stopwatchStatus) {
+        stopwatchStatus.textContent = `📍 Lap Recorded: ${formatTime(swElapsed)}`;
+        if (audioEnabled) playChimeSound();
+      }
+    });
+  }
+
+  if (chronoResetBtn) {
+    chronoResetBtn.addEventListener('click', () => {
+      swRunning = false;
+      clearInterval(swInterval);
+      swElapsed = 0;
+      if (stopwatchTime) stopwatchTime.textContent = '00:00.00';
+      if (stopwatchStatus) stopwatchStatus.textContent = 'Ready';
+      if (chronoStartBtn) {
+        chronoStartBtn.textContent = 'Start Chrono';
+        chronoStartBtn.style.background = 'var(--emerald-gradient)';
+      }
+    });
+  }
+
+  if (reserveChronoBtn) {
+    reserveChronoBtn.addEventListener('click', () => {
+      const modalSubtitle = document.getElementById('modalReserveSubtitle');
+      if (modalSubtitle) modalSubtitle.textContent = 'Secure your allocation for the Titan Stellar Emerald Chronograph ($1,290).';
+      openModal();
+    });
+  }
+
   // --- Web Audio Synthesizer ---
   function initAudio() {
     if (!audioCtx) {
@@ -417,7 +530,35 @@
     });
   }
 
-  // --- Bespoke Studio & Customizer Logic ---
+  // --- Bespoke Studio & Model Switcher Logic ---
+  if (modelSovereignBtn && modelChronoBtn) {
+    modelSovereignBtn.addEventListener('click', () => {
+      modelSovereignBtn.classList.add('active');
+      modelChronoBtn.classList.remove('active');
+      currentModel = 'sovereign';
+      basePrice = 24500;
+      if (selectedModelName) selectedModelName.textContent = 'Sovereign 18K Gold';
+      if (studioWatchImg) {
+        studioWatchImg.src = 'frames/ezgif-frame-210.jpg';
+        studioWatchImg.style.maxHeight = '85%';
+      }
+      updateTotalPrice();
+    });
+
+    modelChronoBtn.addEventListener('click', () => {
+      modelChronoBtn.classList.add('active');
+      modelSovereignBtn.classList.remove('active');
+      currentModel = 'chrono';
+      basePrice = 1290;
+      if (selectedModelName) selectedModelName.textContent = 'Stellar Emerald Chrono';
+      if (studioWatchImg) {
+        studioWatchImg.src = 'assets/titan-emerald-chronograph.jpg';
+        studioWatchImg.style.maxHeight = '92%';
+      }
+      updateTotalPrice();
+    });
+  }
+
   strapButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       strapButtons.forEach(b => b.classList.remove('active'));
@@ -429,7 +570,7 @@
       if (selectedStrapName) {
         if (type === 'gold') selectedStrapName.textContent = '18K Solid Rose Gold';
         if (type === 'leather') selectedStrapName.textContent = 'Tuscan Cognac Alligator';
-        if (type === 'rubber') selectedStrapName.textContent = 'Deep Emerald Vulcanized Rubber';
+        if (type === 'rubber') selectedStrapName.textContent = 'Deep Emerald Vulcanized Silicone';
       }
 
       updateTotalPrice();
@@ -501,8 +642,9 @@
       const nameInput = document.getElementById('vipName');
       const name = nameInput ? nameInput.value : 'Collector';
       const randomCode = Math.floor(1000 + Math.random() * 9000);
+      const prefix = currentModel === 'chrono' ? 'TT-CHRONO' : 'TT-SOVEREIGN';
       
-      if (certSerial) certSerial.textContent = `TT-2026-EMERALD-${randomCode}`;
+      if (certSerial) certSerial.textContent = `${prefix}-2026-${randomCode}`;
       if (certOwner) certOwner.textContent = `Provenance Issued to: ${name}`;
 
       if (modalFormScreen) modalFormScreen.style.display = 'none';
